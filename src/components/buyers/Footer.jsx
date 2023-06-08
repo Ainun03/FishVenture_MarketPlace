@@ -82,7 +82,7 @@ function Footer(){
                 </div>
                 <div className=" mx-8 flex py-2">
                     <AiOutlineCopyrightCircle size={20} className="text-gray-500 "/>
-                    <p className="text-gray-500 text-sm">Copyright 2022 Ban<span className="underline">Co</span>. Terms & Privacy</p>
+                    <p className="text-gray-500 text-sm">Copyright 2022 E-<span className="underline">Fish</span>. Terms & Privacy</p>
                 </div>
             </div>
         </Fragment>

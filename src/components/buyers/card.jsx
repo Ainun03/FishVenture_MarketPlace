@@ -2,6 +2,9 @@ import { Fragment } from "react";
 // redux
 import { useNavigate, useParams } from 'react-router-dom';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 function Cardbuyer(){
     const navigate = useNavigate();
@@ -9,6 +12,7 @@ function Cardbuyer(){
         <Fragment>
             <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer' 
             onClick={() => navigate('/product-detail')}
+            
             // onClick={() => {
             // // Checking product seller with user logged\
             // if ((item.userId == auth.login.id && auth.login.id !== undefined)) {
@@ -17,7 +21,7 @@ function Cardbuyer(){
             //     navigate(`/buyer-product/${item.productId}`);
             // }
             // }}
-            >
+             >
                 <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
                 <div className="card-body px-2 pt-2 pb-3">
                     <h3 className='font-semibold'>Spesifikasi</h3> 
@@ -33,7 +37,7 @@ function Cardbuyer(){
                 </div>
             </div>
 
-            <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer' >
+            <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer'  >
                 <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
                 <div className="card-body px-2 pt-2 pb-3">
                     <h3 className='font-semibold'>Spesifikasi</h3> 
