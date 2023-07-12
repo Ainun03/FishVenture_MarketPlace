@@ -14,7 +14,7 @@ function Footer(){
             <div className="relative pt-4 bg-gray-300">
                 <div className="mx-8 grid grid-cols-2 py-4 md:grid-cols-5">
                     <div className="py-2"> 
-                        <h1 className='font-semibold text-primary text-2xl' >E-<span className="text-black underline decoration-primary">Fish</span>.</h1>
+                        <h1 className='font-semibold text-primary text-2xl' >Fish<span className="text-black underline decoration-primary">Venture</span>.</h1>
                         <div className="flex  flex-row  ">
                             <div className=" grid grid-cols-3 py-4 px-1 md:grid-cols-5 gap-2">
                                 <div className="border-x-4 border-y-4 border-white bg-white flex justify-center items-center bg-white rounded-full">
@@ -82,7 +82,7 @@ function Footer(){
                 </div>
                 <div className=" mx-8 flex py-2">
                     <AiOutlineCopyrightCircle size={20} className="text-gray-500 "/>
-                    <p className="text-gray-500 text-sm">Copyright 2022 E-<span className="underline">Fish</span>. Terms & Privacy</p>
+                    <p className="text-gray-500 text-sm">Copyright 2022 Fish<span className="underline">venture</span>. Terms & Privacy</p>
                 </div>
             </div>
         </Fragment>

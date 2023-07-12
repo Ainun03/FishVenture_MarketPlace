@@ -1,12 +1,186 @@
-import React,{Fragment} from "react";
+import React,{Fragment,useEffect, useState} from "react";
+
+// component
+import Input from "../../../components/sellers/form/Input";
+import Button from "../../../components/sellers/form/Button";
+import Select from "../../../components/sellers/form/Select";
+import Textarea from "../../../components/sellers/form/Textarea";
 
 // icons
 import { IoChevronBackCircle } from 'react-icons/io5';
 
 // react dom
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-function AddProduct () {
+const categories = [
+    { value: 1, key: "Hobi" },
+    { value: 2, key: "Kendaraan" },
+    { value: 3, key: "Baju" },
+    { value: 4, key: "Elektronik" },
+    { value: 5, key: "Kesehatan" },
+];
+
+const AddProduct = () => {
+
+    const location = useLocation();
+    if (location.pathname.includes("edit_product"))
+        document.title = "Edit Product";
+    else document.title = "Add Product";
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    /* ======== for changing categories ======== */
+    const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+    const handleChangeCategory = (e) => {
+        // console.log(e.target.value);
+        setSelectedCategory(
+            categories.find(
+                (category) => category.value === parseInt(e.target.value)
+            )
+        );
+        formik.setFieldValue("categoryId", e.target.value);
+    };
+
+    /* ======== for changing upload product ======== */
+    const [previewProductImages, setPreviewProductImages] = useState([]);
+    const FiletoDataURL = (file, callback) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            callback(reader.result);
+        };
+        reader.onerror = function (error) {
+            toast.error(error);
+        };
+    };
+    const handleUploadProdct = (e) => {
+        const files = e.target.files;
+        setPreviewProductImages([]);
+        // console.log(e);
+
+        // reset error message
+        formik.setFieldError("images", "");
+        formik.setFieldValue("images", "");
+
+        // if users upload more than 4 images
+        if (files.length > 4) {
+            formik.setFieldError("images", "Hanya bisa mengunggah 4 gambar");
+            formik.setFieldTouched("images", true);
+        } else {
+            // set data url images for previews
+            [...Array(files.length)].forEach((item, index) => {
+                FiletoDataURL(files[index], (result) => {
+                    setPreviewProductImages((prevState) => [
+                        ...prevState,
+                        result,
+                    ]);
+                });
+            });
+            // set formik value
+            formik.setFieldValue("images", files, files.length <= 4);
+        }
+    };
+
+    /* ======== formik stuff ======== */
+    const initialValues = {
+        productName: "",
+        price: "",
+        categoryId: categories[0].value,
+        description: "",
+        images: "",
+    };
+    const validationSchema = () => {
+        const validationObject = {
+            productName: Yup.string().required("Masukkan nama produk"),
+            price: Yup.string()
+                .required("Tolong masukkan harga produk")
+                .matches(/^[0-9]*$/, "Tolong hanya masukkan angka"),
+            description: Yup.string()
+                .required("Tolong masukkan deskripsi produk")
+                .max(300, "Batas maksimum deskripsi adalah 300 karakter"),
+            images: Yup.string().required(
+                "Tolong masukkan gambar produk (Maks 4)"
+            ),
+        };
+        return Yup.object().shape(validationObject);
+    };
+    const formik = useFormik({
+        initialValues,
+        validationSchema,
+        onSubmit: (values) => {
+            const formData = new FormData();
+            formData.append("categoryId", values.categoryId);
+            formData.append("description", values.description);
+            formData.append("price", values.price);
+            formData.append("productName", values.productName);
+
+            [...Array(values.images.length)].forEach((item, index) => {
+                formData.append("images", values.images[index]);
+            });
+
+            if (location.pathname.includes("edit_product")) {
+                formData.append("productId", id);
+
+                if (values.images === "placeholder")
+                    formData.set("images", null);
+
+                toast.loading("Memperbarui detail produk . . .");
+                // dispatch(updateProduct(formData))
+                //     .unwrap()
+                //     .then(() => {
+                //         toast.dismiss();
+                //         toast.success("Berhasil memperbarui detail produk!");
+                //         navigate("/list");
+                //     });
+            } else {
+                // toast.loading("Menambahkan produk . . .");
+                // dispatch(addProduct(formData))
+                //     .unwrap()
+                //     .then(() => {
+                //         toast.dismiss();
+                //         toast.success("Berhasil menambahkan produk!");
+                //         navigate("/list");
+                    // });
+            }
+        },
+    });
+
+     /* ======== handle preview ======== */
+     const { fullName, imageUrl, address } = useSelector((state) => state.user);
+     const handlePreview = () => {
+         const { productName, price, categoryId, description, images } =
+             formik.values;
+         if (
+             productName === "" ||
+             price === "" ||
+             description === "" ||
+             images === ""
+         )
+             toast.error("Tolong lengkapi semua data");
+         else {
+             const previewProduct = {
+                 productId: location.pathname.includes("edit_product") ? id : -1,
+                 productName,
+                 price,
+                 categoryId,
+                 description,
+                 productImages: previewProductImages,
+                 realProductImages: images,
+                 userName: fullName,
+                 photoProfile: imageUrl,
+                 city: address.city,
+             };
+            //  dispatch(setPreviewProduct(previewProduct));
+             navigate("/preview");
+         }
+     };
+
     return (
         <Fragment>
             <div className="relative" 
@@ -22,93 +196,182 @@ function AddProduct () {
                     <div className="text-center text-3xl font-semibold">
                         <h1>Post Produk</h1>
                     </div>
-                    <div className="flex container  mx-auto max-w-3xl pt-3" >
-				
-				<div className="w-full p-6 border mx-4 rounded-lg border-xl bg-white" >
-                    <div className="mb-4">
-                            <label className="relative">
-                                <span className="block mb-1 text-sm font-medium text-slate-700">Pilih Produk</span>
-                                <select
-                                    // onChange={(e) => handleChangeProvince && setCurrentProfil({ ...currentProfil, city: e.target.value })}
-                                    required
-                                    // onChange={(e) => setProductTypeId(e.target.value)}
-                                    // value={countryId}
-                                    name="productTypeId"
-                                    className="
-                                        w-full           
-                                        block
-                                        mt-1
-                                        rounded-xl
-                                        bg-gray-200    
-                                        px-4 py-2             
-                                        shadow-sm
-                                        focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
-                                        "  >
-
-                                    <option className="" value='' disabled selected >
-                                        Type Produk
-                                    </option>
-                                    
-                                    <option value={1}>Kelapa</option>
-                                    <option value={2}>Pisang</option>
-                                    {/* {allProvinces.map((province) => (
-                                        <option key={province} value={province}>
-                                            {province}
-                                        </option>
-                                    ))} */}
-
-                                </select>
-
-                            </label>
-                            {/* {productTypeId === '' && isSubmitted ? <span className='text-red-600 mt-1'>*Silahkan Isi Tipe Produk</span> : ''} */}
+                    {/* <div className="flex container  mx-auto max-w-3xl pt-3" > */}			
+                    <section className="pt-5 md:pt-8 pb-8">
+                        <div className="container-small relative">
+                            {/* <Link
+                                to="/"
+                                className="absolute md:-left-76px w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition"
+                            >
+                                
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 12H5" stroke="#151515" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M12 19L5 12L12 5" stroke="#151515" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </Link> */}
+                            <p className="text-center font-medium mb-10 md:hidden pt-1">
+                                Lengkapi Detail Produk
+                            </p>
+                            <form
+                                onSubmit={formik.handleSubmit}
+                                method="POST"
+                                encType="multipart/form-data"
+                            >
+                                <fieldset className="flex flex-col mt-4 space-y-1">
+                                    <label htmlFor="productName">
+                                        Nama Produk{" "}
+                                        <span className="text-red-500">*</span>
+                                    </label>
+                                    <Input
+                                        type="text"
+                                        id="productName"
+                                        name="productName"
+                                        placeholder="Nama Produk"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.productName}
+                                    />
+                                    {formik.touched.productName &&
+                                        formik.errors.productName && (
+                                            <span className="text-sm text-red-500">
+                                                {formik.errors.productName}
+                                            </span>
+                                        )}
+                                </fieldset>
+                                <fieldset className="flex flex-col mt-4 space-y-1">
+                                    <label htmlFor="price">
+                                        Harga Produk{" "}
+                                        <span className="text-red-500">*</span>
+                                    </label>
+                                    <Input
+                                        type="text"
+                                        id="price"
+                                        name="price"
+                                        placeholder="Harga Produk"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.price}
+                                    />
+                                    {formik.touched.price && formik.errors.price && (
+                                        <span className="text-sm text-red-500">
+                                            {formik.errors.price}
+                                        </span>
+                                    )}
+                                </fieldset>
+                                <fieldset className="flex flex-col mt-4 space-y-1">
+                                    <label htmlFor="categoryId">Kategori</label>
+                                    <Select
+                                        id="categoryId"
+                                        name="categoryId"
+                                        value={selectedCategory.value}
+                                        onChange={handleChangeCategory}
+                                    >
+                                        {categories.map((category) => (
+                                            <option
+                                                key={category.key}
+                                                value={category.value}
+                                            >
+                                                {category.key}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                </fieldset>
+                                <fieldset className="flex flex-col mt-4 space-y-1">
+                                    <label htmlFor="description">
+                                        Deskripsi{" "}
+                                        <span className="text-red-500">*</span>
+                                    </label>
+                                    <Textarea
+                                        type="text"
+                                        id="description"
+                                        name="description"
+                                        placeholder="Deskripsi produk"
+                                        rows="3"
+                                        cols="50"
+                                        style={{ resize: "none" }}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.description}
+                                    />
+                                    {formik.touched.description &&
+                                        formik.errors.description && (
+                                            <span className="text-sm text-red-500">
+                                                {formik.errors.description}
+                                            </span>
+                                        )}
+                                </fieldset>
+                                <fieldset className="mt-4">
+                                    <p className="mb-1">
+                                        Foto Produk (Maks 4){" "}
+                                        <span className="text-red-500">*</span>
+                                    </p>
+                                    <div className="flex space-x-2">
+                                        {previewProductImages.map((image, index) => (
+                                            <div
+                                                key={index}
+                                                htmlFor="images"
+                                                className=" w-24 h-24 flex items-center justify-center rounded-lg border bg-white hover:bg-gray-100 transition"
+                                            >
+                                                <img
+                                                    src={image}
+                                                    className="object-cover h-full w-full rounded-lg"
+                                                />
+                                            </div>
+                                        ))}
+                                        {previewProductImages.length <= 4 && (
+                                            <div>
+                                                <input
+                                                    type="file"
+                                                    id="images"
+                                                    name="images"
+                                                    accept="image/png, image/jpg, image/jpeg"
+                                                    className="h-full w-full hidden"
+                                                    multiple
+                                                    onBlur={formik.handleBlur}
+                                                    onChange={handleUploadProdct}
+                                                    onClick={(e) =>
+                                                        (e.target.value = "")
+                                                    }
+                                                />
+                                                <label
+                                                    htmlFor="images"
+                                                    className=" w-24 h-24 flex items-center justify-center rounded-lg border-2 border-dashed bg-white hover:bg-gray-100 transition"
+                                                >
+                                                    {/* prettier-ignore  */}
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M12 5V19" stroke="#8A8A8A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                        <path d="M5 12H19" stroke="#8A8A8A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                                    </svg>
+                                                </label>
+                                            </div>
+                                        )}
+                                    </div>
+                                    {formik.touched.images && formik.errors.images && (
+                                        <span className="text-sm text-red-500">
+                                            {formik.errors.images}
+                                        </span>
+                                    )}
+                                </fieldset>
+                                <div className="flex flex-row items-start  mt-6 gap-4">
+                                    <Button
+                                        type="button"
+                                        onClick={handlePreview}
+                                        className="w-full"
+                                        variant="secondary"
+                                    >
+                                        Preview
+                                    </Button>
+                                    <Button type="submit" className="w-full bg-primary">
+                                        {location.pathname.includes("edit_product")
+                                            ? "Perbarui"
+                                            : "Terbitkan"}
+                                    </Button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div className="mb-4 pt-5">
-                            <label className="block">
-                                <span className="block mb-1 text-sm font-medium text-slate-700">
-                                    Spesifikasi
-                                </span>
-                                <input
-                                    // value={name}
-                                    // onChange={(e) => setSpecificType( e.target.value)}
-                                    type="text"
-                                    name="specificType"
-                                    placeholder="Nama"
-                                    className=" w-full rounded-xl  px-4 py-2 bg-gray-200"
-                                />
-
-                                {/* {specificType === '' && isSubmitted ? <span className='text-red-600 mt-1'>*Silahkan isi specificType</span> : ''} */}
-                            </label>
-                        </div>
-                        <div className="mb-4 pt-5">
-                            <label className="block">
-                                <span className="block mb-1 text-sm font-medium text-slate-700">
-                                    Description
-                                </span>
-                                <input
-                                    // value={name}
-                                    // onChange={(e) => setDescription( e.target.value)}
-                                    type="text"
-                                    name="description"
-                                    placeholder="Nama"
-                                    className=" w-full rounded-xl  px-4 py-2 bg-gray-200"
-                                />
-
-                                {/* {description === '' && isSubmitted ? <span className='text-red-600 mt-1'>*Silahkan Description</span> : ''} */}
-                            </label>
-                        </div>
-                        <div className=" mb-4 ">
-						<button type="submit" 
-                        // onClick={() => postProSubmit()}
-							className="px-4 w-full py-2 mr-4 border-2 hover:bg-lime-400 border-primary bg-primary text-white font-semibold rounded-xl">
-							Simpan
-						</button>
-					</div>
-
-                    </div>		
-                    </div>
-                
+                    </section>		
                 </div>
+                
             </div>
 
         </Fragment>

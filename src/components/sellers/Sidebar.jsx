@@ -15,7 +15,7 @@ const Sidebar = () => {
 
     return(
         <Fragment>
-            <div className="bg-gradient-to-r from-[#39A2DB]  to-[#256D85] text-white  border drop-shadow-md shadow-2xl shadow-slate-500 px-4 w-72 hidden md:block ">
+            <div className="bg-gradient-to-r from-[#39A2DB] to-[#256D85]  text-white  drop-shadow-md shadow-2xl shadow-slate-500  rounded-r-2xl px-4 w-72 hidden md:block ">
                 <Link to="/home-sel">
                     <div className={
                     "mt-4 absolute " +
@@ -44,11 +44,11 @@ const Sidebar = () => {
                         </div>
                     </Link>
                     
-                    <Link to="/home-sel/inventory">
+                    <Link to="/">
                         <div className={
                             "home text-center mt-2 p-2 flex gap-3  hover:text-[#0172AF] " +
-                            (location.pathname === "/home-sel/inventory" ||
-                            location.pathname === "/home-sel/inventory"
+                            (location.pathname === "/" ||
+                            location.pathname === "/"
                             ? "active-state text-[#0172AF] bg-gray-200"
                             : "nonActive-state")
                         }> 

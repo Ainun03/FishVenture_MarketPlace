@@ -1,18 +1,31 @@
-import React,{ Fragment }from "react";
+import React,{ Fragment,useEffect }from "react";
 
 // pages
 import NavbarSel from "../../components/sellers/NavbarSel";
 import Sidebar from "../../components/sellers/Sidebar";
 
+import { getUser } from "../../slices/authSlice";
+import { getUsers } from "../../slices/profileSlice";
+
 import { Outlet } from "react-router";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function HomeSel (){
+    const dispatch = useDispatch();
+    const { user } = useSelector(state => state);
+    let role=user.user.data.applicationType
+    console.log(role)
+    // useEffect(() => {
+    //     dispatch(getUsers({
+    //         applicationType:role
+    //     }));
+    // }, [dispatch]);
     return(
         <Fragment>
-            <div className="relative font-sans">
-                <div className="flex h-screen">
-                    <Sidebar/>
+            <div className=" bg-gray-200 font-sans">
+                <div className="flex min-h-screen ">
+                    <Sidebar />
                     {/* <div className="bg-transparant  border drop-shadow-md shadow-2xl shadow-slate-500 px-2 ">
                         <div className=" h-full flex flex-col justify-center">
                             <div className="">
@@ -49,7 +62,7 @@ function HomeSel (){
                         </div>
                     </div> */}
 
-                    <div className="bg-gray-200 w-full">
+                    <div className="bg-gray-200  w-full">
                         {/* <NavbarBuyer/> */}
                         <NavbarSel/>
                         <Outlet />

@@ -2,16 +2,15 @@ import { Fragment } from "react";
 // redux
 import { useNavigate, useParams } from 'react-router-dom';
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import {BiTime} from 'react-icons/bi'
 
 
 function Cardbuyer(){
     const navigate = useNavigate();
     return(
         <Fragment>
-            <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer' 
-            onClick={() => navigate('/product-detail')}
+            <div className='card border-2 hover:origin-top-left w-60 bg-[#E8F0F2]  rounded-md p-2 shadow-main shadow-slate-700 h-56 cursor-pointer' 
+            onClick={() => navigate('/product-list-seller')}
             
             // onClick={() => {
             // // Checking product seller with user logged\
@@ -22,10 +21,10 @@ function Cardbuyer(){
             // }
             // }}
              >
-                <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
-                <div className="card-body px-2 pt-2 pb-3">
-                    <h3 className='font-semibold'>Spesifikasi</h3> 
-                    <h5 className='text-xs text-neutralGray my-1'>deskripsi</h5>
+                <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/lele.png' alt='product' />
+                <div className="card-body px-1 pt-2 pb-3">
+                    <h3 className='font-semibold'>Mas Darmo</h3> 
+                    <h5 className='text-xs text-neutralGray my-1'>Alamat</h5>
                     <h3 className='font-semibold text-primary'>
                     {
                         new Intl.NumberFormat('id-ID',
@@ -34,39 +33,16 @@ function Cardbuyer(){
                     }
                     <span className='font-thin text-xs text-black'>/gram</span>
                     </h3>
-                </div>
-            </div>
+                    <div className="text-primary flex justify-between pt-2">
+                        <div><BiTime size={20}/></div>
+                        <div className="text-xs">
+                            <p>123 Hari</p>
+                        </div>
 
-            <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer'  >
-                <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
-                <div className="card-body px-2 pt-2 pb-3">
-                    <h3 className='font-semibold'>Spesifikasi</h3> 
-                    <h5 className='text-xs text-neutralGray my-1'>deskripsi</h5>
-                    <h3 className='font-semibold text-primary'>
-                    {
-                        new Intl.NumberFormat('id-ID',
-                        { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
-                        ).format(20000)
-                    }
-                    <span className='font-thin text-xs text-black'>/gram</span>
-                    </h3>
+                    </div>
                 </div>
             </div>
-            <div className='card border-2 hover:origin-top-left  rounded-md p-2 shadow-main shadow-slate-700 h-48 cursor-pointer' >
-                <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
-                <div className="card-body px-2 pt-2 pb-3">
-                    <h3 className='font-semibold'>Spesifikasi</h3> 
-                    <h5 className='text-xs text-neutralGray my-1'>deskripsi</h5>
-                    <h3 className='font-semibold text-primary'>
-                    {
-                        new Intl.NumberFormat('id-ID',
-                        { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
-                        ).format(20000)
-                    }
-                    <span className='font-thin text-xs text-black'>/gram</span>
-                    </h3>
-                </div>
-            </div>
+            
             
         </Fragment>
     )

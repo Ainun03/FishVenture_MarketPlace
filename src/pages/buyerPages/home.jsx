@@ -114,10 +114,9 @@ function HomePage() {
               <div  data-aos="zoom-in"
                   data-aos-durations="1000"
                   >
-
                 <CenteredCarousel />
               </div>
-                <div className="mx-8  mx-auto max-w-screen-2xl">
+                <div className=" mx-auto max-w-screen-2xl">
                   {/* <div className="overflow-hidden z-10">
                     <Slider {...slider}>
                       <div className="mx-auto">
@@ -126,60 +125,72 @@ function HomePage() {
                     </Slider>
                         <Cardbuyer/>
                   </div> */}
-                  <div className="py-4 overflow-x-auto no-scrollbar snap-none text-clip" 
-                     >
-                    <div className="snap-center gap-4 flex items-center justify-center w-screen "  
+                  <div className="py-4 mx-8 overflow-x-auto no-scrollbar text-clip" 
+                     data-aos="fade-up-left"
+                     data-aos-durations="1000"
+                     data-aos-delay="1000">
+                    <div className="gap-4 flex "  
+                        >
+                        <Cardbuyer />
+                        <Cardbuyer />
+                        <Cardbuyer />
+                        <Cardbuyer />
+                        <Cardbuyer />
+                        <Cardbuyer />
+                    </div>
+                  </div>
+                  <div className="" data-aos="zoom-in"
+                      data-aos-durations="1000"
+                      >
+                    {/* <CenteredCarousel /> */}
+                  </div>
+                  {/* Our Product ...  */}
+
+                  <div className="mx-8">
+                    {/* <h1 className="text-xl text-center font-bold ">Category</h1> */}
+                    <div className=" gap-10  ">
+                      <div className=" pt-4">
+                        {/* <div className="list-category flex overflow-x-auto no-scrollbar text-clip">
+                          <button onClick={() => handleCategoryClick('all')} className={
+                            category === 'all' ? 'snap-center rounded-lg flex mr-4 bg-primary text-white text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200' : 'snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'
+                          }>
+                            <FiSearch className='my-auto mr-1' />
+                            <span>Semua</span>
+                          </button>
+                          <button onClick={() => handleCategoryClick('Pakaian')} className='snap-center rounded-lg flex mr-4 bg-secondary text-text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
+                            <FiSearch className='my-auto mr-1' />
+                            <span>Pakaian</span>
+                          </button>
+                          <button onClick={() => handleCategoryClick('Elektronik')} className='snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
+                            <FiSearch className='my-auto mr-1' />
+                            <span>Elektronik</span>
+                          </button>
+                        </div> */}
+                          {/* <div className="grid container grid-cols-2 md:grid-cols-6 gap-4 py-3"
+                          data-aos="fade-right"
+                          data-aos-durations="1000"
+                          data-aos-delay="500"
+                          >
+                              <Cardbuyer/>
+                          </div> */}
+                      <div className="py-4 overflow-x-auto no-scrollbar text-clip" 
                         data-aos="fade-up-left"
                         data-aos-durations="1000"
                         data-aos-delay="1000">
-                        <Cardbuyer />
-                        <Cardbuyer />
-                    </div>
-                  </div>
-                  {/* Our Product ...  */}
-                  <div className="text-center">
-                    <h1 className="text-xl  font-bold ">Category</h1>
-                    <div className="items-center flex flex-row justify-center gap-10  ">
-                      <div className=" pt-4">
-                      <div className="list-category flex overflow-x-auto no-scrollbar text-clip">
-                        <button onClick={() => handleCategoryClick('all')} className={
-                          category === 'all' ? 'snap-center rounded-lg flex mr-4 bg-primary text-white text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200' : 'snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'
-                        }>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Semua</span>
-                        </button>
-                        <button onClick={() => handleCategoryClick('Pakaian')} className='snap-center rounded-lg flex mr-4 bg-secondary text-text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Pakaian</span>
-                        </button>
-                        <button onClick={() => handleCategoryClick('Elektronik')} className='snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Elektronik</span>
-                        </button>
-                        {/* <button onClick={() => handleCategoryClick('Kesehatan')} className='snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Kesehatan</span>
-                        </button>
-                        <button onClick={() => handleCategoryClick('Kendaraan')} className='snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Kendaraan</span>
-                        </button>
-                        <button onClick={() => handleCategoryClick('Hobi')} className='snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'>
-                          <FiSearch className='my-auto mr-1' />
-                          <span>Hobi</span>
-                        </button> */}
-                      </div>
-                        <div className="grid mx-auto container grid-cols-2 md:grid-cols-6 gap-4 py-3"
-                        data-aos="fade-right"
-                        data-aos-durations="1000"
-                        data-aos-delay="500"
-                        >
-                            <Cardbuyer/>
+                        <div className="gap-4 flex "  
+                            >
+                            <Cardbuyer />
+                            <Cardbuyer />
+                            <Cardbuyer />
+                            <Cardbuyer />
+                            <Cardbuyer />
+                            <Cardbuyer />
                         </div>
                       </div>
+
+                      </div>
                     </div>
                   </div>
-
                 </div>
             <Footer/>
             </div>

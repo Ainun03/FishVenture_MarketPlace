@@ -7,7 +7,7 @@ import {IoChevronBackCircle} from 'react-icons/io5'
 import { Link } from "react-router-dom";
 
 // component
-import ProfileComSel from "../../components/sellers/ProfileCom";
+import ProfileComSel from "../../components/sellers/profilSel/ProfileCom";
 
  function ProfileSel () {
      return(
