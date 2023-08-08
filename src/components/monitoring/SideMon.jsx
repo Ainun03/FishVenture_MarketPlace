@@ -35,7 +35,7 @@ const SideMon = () => {
                                         " hover:text-[#0172AF] text-white" +
                                         (location.pathname === "/home-mon" ||
                                         location.pathname === "/home-mon/"
-                                            ? "active-state text-[#0172AF] bg-gray-200"
+                                            ? "active-state text-[#053742] "
                                             : "nonActive-state")}
                                         >
                                             <AiOutlineHome size={30}/>
@@ -48,7 +48,7 @@ const SideMon = () => {
                                         "hover:text-[#0172AF] text-white animate-ping" +
                                         (location.pathname === "/home-mon" ||
                                         location.pathname === "/home-mon/"
-                                            ? "active-state text-[#0172AF] bg-gray-200"
+                                            ? "active-state text-[#053742] "
                                             : "nonActive-state")}
                                         >
                                             <span className="flex absolute mt-1  h-[10px] right-5">
@@ -68,7 +68,7 @@ const SideMon = () => {
                                                 "home p-2 flex  gap-3 hover:text-[#0172AF] " +
                                                 (location.pathname === "/home-mon/dashboard-mon" ||
                                                 location.pathname === "/home-mon/dashboard-mon/"
-                                                ? "active-state text-[#0172AF] bg-gray-200 "
+                                                ? "active-state text-[#0172AF] bg-gray-200 border "
                                                 : "nonActive-state")
                                         }>
                                             <div className=" flex justify-center mx-auto md:mx-0 items-center">

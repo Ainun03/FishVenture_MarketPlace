@@ -66,6 +66,7 @@ const CenteredCarousel = () => {
   };
 
 function HomePage() {
+  document.title = "Home Page";
   const [category, setCategory] = useState('all');
   const handleCategoryClick = (ctg) => {
       setCategory(ctg);
@@ -173,24 +174,47 @@ function HomePage() {
                           >
                               <Cardbuyer/>
                           </div> */}
-                      <div className="py-4 overflow-x-auto no-scrollbar text-clip" 
-                        data-aos="fade-up-left"
-                        data-aos-durations="1000"
-                        data-aos-delay="1000">
-                        <div className="gap-4 flex "  
-                            >
-                            <Cardbuyer />
-                            <Cardbuyer />
-                            <Cardbuyer />
-                            <Cardbuyer />
-                            <Cardbuyer />
-                            <Cardbuyer />
+                        <div className="py-4 overflow-x-auto no-scrollbar text-clip" 
+                          data-aos="fade-up-left"
+                          data-aos-durations="1000"
+                          data-aos-delay="1000">
+                          <div className="gap-4 flex "  
+                              >
+                              <Cardbuyer />
+                              <Cardbuyer />
+                              <Cardbuyer />
+                              <Cardbuyer />
+                              <Cardbuyer />
+                              <Cardbuyer />
+                          </div>
                         </div>
-                      </div>
 
                       </div>
                     </div>
                   </div>
+                  <div className="grid mx-36 pt-4 max-w-screen-xl grid-cols-1 h-full justify-items-center items-center md:grid-cols-2  ">
+                        
+
+                        <div className="flex-col ">
+                          <div className="text-center md:text-right h-full">
+                              <h1 className="text-3xl tracking-wider  font-bold">Download The App</h1>
+                              <p className="tracking-tight text-sm py-8 font-normal ">Nec massa viverra eget feugiat pellentesque. Feugiat adipiscing massa vitae auctor mi massa. Sodales libero viverra cursus sed duis luctus nulla. In malesuada vulputate pharetra ipsum orci.</p>
+                              <div className="flex gap-4  justify-center md:justify-end">
+                              <img className="rounded-2xl" src='/assets/images/ios-store.png' alt='ios-store-app'/>
+                              <img className="rounded-2xl" src='/assets/images/andro-store.png' alt='ios-store-app'/>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div className="flex-col pt-4 md:pt-0"
+                        data-aos="fade-right"
+                        data-aos-durations="1000"
+                        data-aos-delay="500">
+                            <div className="h-full">
+                            <img className=" w-64 rounded-2xl" src='/assets/images/iPhone.png' alt='download-app'/>
+                            </div>         
+                        </div>
+                    </div>
                 </div>
             <Footer/>
             </div>

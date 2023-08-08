@@ -20,7 +20,7 @@ function ProfileMenuSel({ hidden }) {
   return (
     <div className={`${hidden} bg-white absolute z-[999] rounded-2xl shadow-main px-5 py-3  w-48 transition ease-in-out duration-300`}>
       <div onClick={() => {
-        hidden ? navigate('/info-profile') : navigate('/login');
+        hidden ? navigate('/home-sel/profil') : navigate('/auth-page/login-penjual');
       }} className='flex items-center py-3 gap-2 cursor-pointer'>
         <FiUser size={20} />
         <span>Profil</span>
@@ -37,7 +37,7 @@ function ProfileMenuSel({ hidden }) {
             </div>
         </button>
       ) : (<div onClick={() => {
-        navigate('/login');
+        navigate('/auth-page/login-penjual');
       }} className='flex border-t border-gray-200 items-center py-3 gap-2 cursor-pointer'>
         <FiLogIn size={20} />
         <span>Masuk</span>

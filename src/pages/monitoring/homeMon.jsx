@@ -5,6 +5,7 @@ import SideMon from "../../components/monitoring/SideMon";
 import { Outlet } from "react-router";
 
 function HomeMon(){
+    document.title = "Home Page - Admin";
     return(
         <Fragment>
             <div className="relative bg-gradient-to-r from-[#256D85]  to-[#39A2DB]  font-sans"

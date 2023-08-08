@@ -108,41 +108,41 @@ const AddKolam = () => {
             [...Array(values.image.length)].forEach((item, index) => {
                 data.append("image", values.image[index]);
             });
-            // toast.loading("Menambahkan Kolam . . .");
-            // dispatch(kolamSeller(
-            //     formData
-            //     ))
-            //     .unwrap()
-            //     .then(() => {
-            //         toast.dismiss();
-            //         toast.success("Berhasil menambahkan Kolam!");
-            //         navigate("/home-sel/laporan");
-            //     });
+            toast.loading("Menambahkan Kolam . . .");
+            dispatch(kolamSeller(
+                values
+                ))
+                .unwrap()
+                .then(() => {
+                    toast.dismiss();
+                    toast.success("Berhasil menambahkan Kolam!");
+                    navigate("/home-sel/laporan");
+                });
 
-            if (location.pathname.includes("edit_kolam")) {
-                data.append("productId", id);
+            // if (location.pathname.includes("edit_kolam")) {
+            //     data.append("productId", id);
 
-                if (values.image === "placeholder")
-                    data.set("image", null);
+            //     if (values.image === "placeholder")
+            //         data.set("image", null);
 
-                toast.loading("Memperbarui detail Kolam . . .");
-                // dispatch(updateProduct(formData))
-                //     .unwrap()
-                //     .then(() => {
-                //         toast.dismiss();
-                //         toast.success("Berhasil memperbarui detail produk!");
-                //         navigate("/list");
-                //     });
-            } else {
-                toast.loading("Menambahkan produk . . .");
-                dispatch(kolamSeller(data))
-                    .unwrap()
-                    .then(() => {
-                        toast.dismiss();
-                        toast.success("Berhasil menambahkan produk!");
-                        navigate("/home-sel/laporan");
-                    });
-            }
+            //     toast.loading("Memperbarui detail Kolam . . .");
+            //     // dispatch(updateProduct(formData))
+            //     //     .unwrap()
+            //     //     .then(() => {
+            //     //         toast.dismiss();
+            //     //         toast.success("Berhasil memperbarui detail produk!");
+            //     //         navigate("/list");
+            //     //     });
+            // } else {
+            //     toast.loading("Menambahkan produk . . .");
+            //     dispatch(kolamSeller(data))
+            //         .unwrap()
+            //         .then(() => {
+            //             toast.dismiss();
+            //             toast.success("Berhasil menambahkan produk!");
+            //             navigate("/home-sel/laporan");
+            //         });
+            // }
         },
     });
 

@@ -26,7 +26,7 @@ function FormLoginPembeli ({
     const initialValues = {
         email: "",
         password: "",
-        applicationType: "seller",
+        applicationType: "buyer",
     };
 
     const validationSchema = () => {

@@ -20,7 +20,7 @@ function ProfileMenu({ hidden }) {
   return (
     <div className={`${hidden} bg-white absolute z-[999] rounded-2xl shadow-main px-5 py-3  w-56 transition ease-in-out duration-300`}>
       <div onClick={() => {
-        hidden ? navigate('/info-profile') : navigate('/login');
+        hidden ? navigate('/buyer-profil') : navigate('/login');
       }} className='flex items-center py-3 gap-2 cursor-pointer'>
         <FiUser size={20} />
         <span>Profil</span>

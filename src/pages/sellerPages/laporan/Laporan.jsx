@@ -98,6 +98,16 @@ function Laporan () {
                         </div>
                         <MdArrowForwardIos />
                       </div>
+                        <div className={category === 'sold' ? 'flex flex-row items-center justify-between text-[#0172AF] cursor-pointer' : 'flex flex-row items-center justify-between hover:text-[#0172AF] cursor-pointer'} onClick={() => setCategory('sold')}>
+                          <div className='flex flex-row items-center'>
+                              <FiDollarSign size={20} />
+                            <button onClick={() => navigate('/home-sel/laporan/post-jenis-ikan')}
+                            >
+                              <span className='ml-2 text-base font-semibold'>Jenis Ikan</span>
+                            </button>
+                          </div>
+                          <MdArrowForwardIos />
+                        </div>
                       <div className={category === 'loved' ? 'flex flex-row items-center justify-between text-[#0172AF] cursor-pointer' : 'flex flex-row items-center justify-between hover:text-[#0172AF] cursor-pointer'} onClick={() => setCategory('loved')}>
                         <div className='flex flex-row items-center'>
                           <FiHeart size={20} />
@@ -109,13 +119,6 @@ function Laporan () {
                         </div>
                         <MdArrowForwardIos />
                       </div>
-                      {/* <div className={category === 'sold' ? 'flex flex-row items-center justify-between text-[#0172AF] cursor-pointer' : 'flex flex-row items-center justify-between hover:text-[#0172AF] cursor-pointer'} onClick={() => setCategory('sold')}>
-                        <div className='flex flex-row items-center'>
-                          <FiDollarSign size={20} />
-                          <span className='ml-2 text-base font-semibold'>Terjual</span>
-                        </div>
-                        <MdArrowForwardIos />
-                      </div> */}
                     </div>
                   </div>
                   {/* Category Web End */}

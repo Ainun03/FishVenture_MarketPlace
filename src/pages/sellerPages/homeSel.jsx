@@ -6,12 +6,14 @@ import Sidebar from "../../components/sellers/Sidebar";
 
 import { getUser } from "../../slices/authSlice";
 import { getUsers } from "../../slices/profileSlice";
+import { getPond } from "../../slices/seller/sellerSlice";
 
 import { Outlet } from "react-router";
 import { useDispatch, useSelector } from 'react-redux';
 
 
 function HomeSel (){
+    document.title = "Home Page - Seller";
     const dispatch = useDispatch();
     const { user } = useSelector(state => state);
     let role=user.user.data.applicationType
@@ -21,6 +23,9 @@ function HomeSel (){
     //         applicationType:role
     //     }));
     // }, [dispatch]);
+    useEffect(() => {
+        dispatch(getPond());
+      }, [dispatch]);
     return(
         <Fragment>
             <div className=" bg-gray-200 font-sans">
@@ -62,7 +67,7 @@ function HomeSel (){
                         </div>
                     </div> */}
 
-                    <div className="bg-gray-200  w-full">
+                    <div className="bg-gray-200 w-full">
                         {/* <NavbarBuyer/> */}
                         <NavbarSel/>
                         <Outlet />

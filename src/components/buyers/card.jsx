@@ -9,7 +9,7 @@ function Cardbuyer(){
     const navigate = useNavigate();
     return(
         <Fragment>
-            <div className='card border-2 hover:origin-top-left w-60 bg-[#E8F0F2]  rounded-md p-2 shadow-main shadow-slate-700 h-56 cursor-pointer' 
+            <div className='card border-2 hover:origin-top-left w-full bg-[#E8F0F2]  rounded-md p-2 shadow-main shadow-slate-700 h-64 cursor-pointer' 
             onClick={() => navigate('/product-list-seller')}
             
             // onClick={() => {

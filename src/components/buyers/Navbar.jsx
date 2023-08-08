@@ -26,18 +26,16 @@ export default function NavbarBuyer(){
       setProfileMenu(!profileMenu);
     };
 
-    const { isAuthenticated,applicationType, } = useSelector(
+    const { isAuthenticated } = useSelector(
       (store) => store.user
     );
-    console.log({isAuthenticated,applicationType})
-
         
     const handleClick = () => {
         setShow(current => !current);
     };
     return(
         <Fragment>
-        <div className='bg-tarnsparent  bg-white shadow md:static flex w-full z-[30] md:block md:top-0 md:z-0'>
+        <div className='bg-transparant border-b-2  bg-white shadow md:static flex w-full z-[30] md:block md:top-0 md:z-0'>
           <div className="container mx-4 py-4 md:mx-auto  max-w-7xl md:px-4 flex justify-between md:py-4">
             <div className="items-center flex-none "> 
                 <h1 className="font-semibold  text-primary h-full justify-center inline-flex items-center text-3xl">Fish<span className="text-black underline decoration-primary">Venture</span>.</h1>
@@ -50,7 +48,7 @@ export default function NavbarBuyer(){
                       <CustomLink to="/">Home</CustomLink>
                     </li>
                     <li className="py-2">
-                      <CustomLink to="/jadwal">Jadwal</CustomLink>
+                      <CustomLink to="/jadwal-panen">Jadwal</CustomLink>
                     </li>
                     <li className=" py-2 ">
                       <CustomLink to='/pesanan'>Pesanan</CustomLink>
@@ -101,7 +99,7 @@ export default function NavbarBuyer(){
                   <Link to="/auth-page/register">
                     <h1 className="tracking-tight hover:underline hover:decoration-primary text-xl font-semibold">Register </h1>
                   </Link>{"||"}
-                  <Link to="/auth-page/login">
+                  <Link to="/auth-page/login-penjual">
                     <h1 className="tracking-tight hover:underline hover:decoration-primary text-xl font-semibold">Login </h1>
                   </Link>
 
@@ -144,7 +142,7 @@ export default function NavbarBuyer(){
                         <CustomLink to="/">Home</CustomLink>
                       </li>
                       <li className="py-1">
-                        <CustomLink to="/jadwal">Jadwal</CustomLink>
+                        <CustomLink to="/jadwal-panen">Jadwal</CustomLink>
                       </li>
                       <li className=" py-1 ">
                         <CustomLink to='/pesanan'>Pesanan</CustomLink>
@@ -183,7 +181,7 @@ export default function NavbarBuyer(){
                   <Link to="/auth-page/register">
                     <h1 className="tracking-tight hover:underline hover:decoration-primary text-xl font-semibold">Register </h1>
                   </Link>{"||"}
-                  <Link to="/auth-page/login">
+                  <Link to="/auth-page/login-penjual">
                     <h1 className="tracking-tight hover:underline hover:decoration-primary text-xl font-semibold">Login </h1>
                   </Link>
 

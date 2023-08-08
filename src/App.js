@@ -16,6 +16,10 @@ import ProductDetail from './pages/buyerPages/products/productDetail';
 import Checkout from './pages/buyerPages/checkout';
 import ProfilBuyer from './pages/buyerPages/profile/ProfilBuyer';
 import ProductSeller from './pages/buyerPages/products/productSeller';
+import JadwalPage from './pages/buyerPages/jadwalPage';
+import PesananPage from './pages/buyerPages/pesananPage';
+import Berlangsung from './components/buyers/pesanan/berlangsung';
+import Selesai from './components/buyers/pesanan/selesai';
 
 // ----- SELLER ------ \\\\
 import HomeSel from './pages/sellerPages/homeSel'
@@ -32,6 +36,7 @@ import ProfileSel from './pages/sellerPages/Profile';
 import Laporan from './pages/sellerPages/laporan/Laporan';
 import KolamDetail from './pages/sellerPages/laporan/laporanKolamDetail';
 import AddKolam from './pages/sellerPages/laporan/AddKolam';
+import JenisIkan from './pages/sellerPages/laporan/JenisIkan';
 import AddBudidaya from './pages/sellerPages/laporan/AddBudidaya';
 
 // Monitoring Page
@@ -53,27 +58,31 @@ function App() {
   )
   console.log(user)
   const RoleRoute = ({ children }) => {
-    if (user.data.applicationType === "buyer"){ 
+    if (user.data.applicationType !== "buyer"){ 
       // <Navigate ("/")   
-      <Navigate  to="/" replace/>
+      // <Navigate  to="/" />
       return children;
-    }else if(user.data.applicationType === "seller"){
-      <Navigate  to="/home-sel" replace/>
+    }else if(user.data.applicationType !== "seller"){
+      // <Navigate  to="/home-sel" replace/>
       return children;
       // Navigate ("/home-sel")
-    }else if(user.data.applicationType === "admin"){
+    }else if(user.data.applicationType !== "admin"){
       // Navigate ("/home-mon")
-      <Navigate  to="/home-mon" replace/>
+      // <Navigate  to="/home-mon" replace/>
       return children;
     } else return <Navigate to="/" replace />
   };
 
-  // useEffect(() => {
-   
-  //   if (user.data.applicationType !== "seller") {
-  //     <Navigate  to="/home-sel" replace/>
-  //   }
-  // }, [ user.data.applicationType]);
+  useEffect(() => {
+    // if (isAuntheticated) {
+    //   <Navigate  to="/" replace/>
+    // }
+    if (user && user.data.applicationType !== "seller") {
+      <Navigate  to="/home-sel" replace/>
+      // navigate('/home-sel')
+      return 
+    }
+  }, [ user, Navigate]);
 
   const AuthRoute = ({ children }) => {
     if (!isAuntheticated) {
@@ -117,6 +126,11 @@ function App() {
         {/* buyer */}
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/buyer-profil' element={<ProfilBuyer />} />
+        <Route path='/jadwal-panen' element={<JadwalPage />} />
+        <Route element={<PesananPage />} >
+          <Route path='pesanan' element={<Berlangsung/>}/>
+          <Route path='pesanan/pesanan-selesai' element={<Selesai/>}/>
+        </Route>
         {/* ----- */}
         {/* Seller */}
         <Route element={
@@ -126,9 +140,9 @@ function App() {
         } >        
             <Route path="home-sel" 
               element={
-              // <RoleRoute>
+              
                 <HomeDashboard />
-              // </RoleRoute>     
+                   
             }></Route> 
             <Route path="home-sel/list" element={
             <ListDas />
@@ -139,12 +153,21 @@ function App() {
             <Route path="home-sel/laporan" element={<Laporan />}></Route>
             <Route path="home-sel/laporan/post-kolam" element={<AddKolam />}></Route>
             <Route path="home-sel/laporan/post-budidaya" element={<AddBudidaya />}></Route>
+            <Route path="home-sel/laporan/post-jenis-ikan" element={<JenisIkan />}></Route>
             <Route path="home-sel/laporan/detail" element={<KolamDetail />}></Route>
             <Route path="home-sel/profil" element={<ProfileSel />}></Route>
         </Route>
         {/* Monitoring */}
-        <Route element={<HomeMon />} >
-          <Route path="home-mon" element={<HomeMonitor />}></Route>
+        <Route element={
+          
+            <HomeMon/>
+          
+          } >
+          <Route path="home-mon" element={
+            
+              <HomeMonitor />
+            
+          }></Route>
           <Route path="home-mon/dashboard-mon" element={<DashboardMon />}></Route>
           <Route path="home-mon/perizinan" element={<Perizinan />}></Route>
         </Route>

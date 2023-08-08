@@ -23,7 +23,6 @@ const categories = [
     { value: 4, key: "Elektronik" },
     { value: 5, key: "Kesehatan" },
 ];
-
 const AddBudidaya = () => {
 
     const location = useLocation();
@@ -34,6 +33,24 @@ const AddBudidaya = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [userAddress, setUserAddress] = useState(null);
+    useEffect(() => {  
+    }, []);
+//     navigator.geolocation.getCurrentPosition(position => {
+//        const { latitude, longitude } = position.coords;
+//        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`)
+//        .then(response => response.json())
+//        .then(data => {
+//            setUserAddress(data.results[0].formatted_address);
+//        });
+
+//    }, []);
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("Latitude is :", position.coords.latitude);
+            console.log("Longitude is :", position.coords.longitude);
+        });      
 
     /* ======== for changing categories ======== */
     const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -87,6 +104,8 @@ const AddBudidaya = () => {
         }
     };
 
+    
+
     /* ======== formik stuff ======== */
     const initialValues = {
         name: "",
@@ -94,27 +113,43 @@ const AddBudidaya = () => {
         provinceId: "",
         cityId: "",
         districtId: "",
-        detailId: "",
         detailAddress: "",
         noteAddress: "",
         type: "",
         latitude: "",
         longtitude: "",
+        url: "",
         teamId: "",
-        image: "",
-        listPool: "",
-        listBerkas: "",
+        status: "",
+        listPool: [],
+        listBerkas: [],
 
     };
     const validationSchema = () => {
         const validationObject = {
-            name: Yup.string().required("Masukkan nama produk"),
-            detail: Yup.string()
-                .required("Tolong masukkan harga produk")
-                .matches(/^[0-9]*$/, "Tolong hanya masukkan angka"),
-            description: Yup.string()
-                .required("Tolong masukkan deskripsi produk")
-                .max(300, "Batas maksimum deskripsi adalah 300 karakter"),
+            name: Yup.string().required("Masukkan nama anda"),
+            countryId: Yup.string()
+                .required("Tolong masukkan negara lokasi budidaya anda"),
+                // .matches(/^[0-9]*$/, "Tolong hanya masukkan angka"),
+            provinceId: Yup.string()
+                .required("Tolong masukkan provinsilokasi budidaya  anda"),
+            cityId: Yup.string()
+                .required("Tolong masukkan kota lokasi budidaya anda"),
+            districtId: Yup.string()
+                .required("Tolong masukkan kecamatan lokasi budidaya anda"),
+            detailAddress: Yup.string()
+                .required("Tolong masukkan detail Almat lokasi budidaya anda"),
+            type: Yup.string()
+                .required("Tolong masukkan deskripsi produk"),
+            latitude: Yup.string()
+                .required("Tolong masukkan deskripsi produk"),
+            longtitude: Yup.string()
+                .required("Tolong masukkan deskripsi produk"),
+            teamId: Yup.string()
+                .required("Tolong masukkan deskripsi produk"),
+            status: Yup.string()
+                .required("Tolong masukkan deskripsi produk"),
+                // .max(300, "Batas maksimum deskripsi adalah 300 karakter"),
             image: Yup.string().required(
                 "Tolong masukkan gambar produk (Maks 4)"
             ),
@@ -209,6 +244,7 @@ const AddBudidaya = () => {
          }
      };
 
+
     return (
         <Fragment>
             <div className="relative" 
@@ -223,6 +259,7 @@ const AddBudidaya = () => {
                 <div className="container px-4 mx-auto max-w-3xl pt-0 pb-20 md:py-7 relative">
                     <div className="text-center text-3xl font-semibold">
                         <h1>Post Kolam</h1>
+                        {/* <div>User's address: {userAddress}</div>; */}
                     </div>
                     {/* <div className="flex container  mx-auto max-w-3xl pt-3" > */}			
                     <section className="pt-5 md:pt-8 pb-8">

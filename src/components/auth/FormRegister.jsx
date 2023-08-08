@@ -68,7 +68,7 @@ function FormRegister () {
                 .then(() => {
                     toast.dismiss();
                     toast.success("Register berhasil!");
-                    navigate("/auth-page/login");
+                    navigate("/auth-page/login-penjual");
                 });
         },
     });
@@ -96,9 +96,9 @@ function FormRegister () {
                         <ModalSellerForm 
                         // image={productData.imageProduct[0]} productName={productData.productName} price={productData.price} 
                         />
-                        {/* <button onClick={maClick} className='rounded-2xl bg-primary hover:bg-[#7126B5CC] w-full py-3 text-white text-sm font-medium'>
+                        <button onClick={modalClick} className='rounded-2xl bg-primary hover:bg-[#7126B5CC] w-full py-3 text-white text-sm font-medium'>
                             Kirim
-                        </button> */}
+                        </button>
                     </div>
                 </div>
 

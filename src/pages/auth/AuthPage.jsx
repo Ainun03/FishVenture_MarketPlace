@@ -2,9 +2,8 @@ import React, { Fragment,useState,useEffect } from "react";
 
 import FormLogin from "../../components/auth/FormLogin";
 
-import { useLocation } from "react-router";
+import { useLocation,Outlet } from "react-router";
 import { Link } from "react-router-dom";
-import { Outlet } from "react-router";
 
 // icons
 const AuthPage = () =>{
@@ -41,7 +40,7 @@ const AuthPage = () =>{
                                 <Link to="/auth-page/login-penjual">
                                     <div className={""+
                                         (location.pathname === "/auth-page/login-penjual" ||
-                                        location.pathname === "/auth-page/login-penjual"
+                                        location.pathname === "/auth-page/login-penjual/"
                                             ? "active-state text-[#0172AF]"
                                             : "nonActive-state")}
                                     >
