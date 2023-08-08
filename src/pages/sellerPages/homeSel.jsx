@@ -4,8 +4,8 @@ import React,{ Fragment,useEffect }from "react";
 import NavbarSel from "../../components/sellers/NavbarSel";
 import Sidebar from "../../components/sellers/Sidebar";
 
-import { getUser } from "../../slices/authSlice";
-import { getUsers } from "../../slices/profileSlice";
+// import { getUser } from "../../slices/authSlice";
+// import { getUsers } from "../../slices/profileSlice";
 import { getPond } from "../../slices/seller/sellerSlice";
 
 import { Outlet } from "react-router";

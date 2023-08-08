@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-const API_URL = 'http://213.190.4.135:8080/'
+const API_URL = 'https://213.190.4.135:8080/'
 
 const register = async (userData) => {
     const response = await axios.post(API_URL + 'register', userData,
@@ -25,7 +25,7 @@ const register = async (userData) => {
     return response.data
   }
 
-const login = async (userData,thunkAPI) => {
+const login = async (userData) => {
     const response = await axios.post(API_URL + 'login', userData)
   
     // const data = response.data;

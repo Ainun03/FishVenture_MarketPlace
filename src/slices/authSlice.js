@@ -6,22 +6,7 @@ import { toast } from "react-toastify";
 // get User from localstorage
 
 const user = JSON.parse(localStorage.getItem('user'))
-    // ? JSON.parse(localStorage.getItem("user"))
-    // : {
-         
-    //       id:"",
-    //       token:"",
-    //       name:"",
-    //       email:"",
-    //       detailAddress:"",
-    //       applicationType:"",
-    //       type:"",
-    //       image:"",
-    //       isError: false,
-    //       isSuccess: false,
-    //       isLoading: false,
-    //       message: '',
-    //   };
+
 const isAuthenticated = JSON.parse(localStorage.getItem("user"))
     ? true
     : false;
@@ -132,9 +117,9 @@ export const loginUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
     "/update-user",
     async (user, thunkAPI) => {
-      const { token } = thunkAPI.getState().user.user.data;
+      // const { token } = thunkAPI.getState().user.user.data;
       console.log(user);
-      const url = `http://localhost:8080/update-user`
+      // const url = `http://localhost:8080/update-user`
       try {
         return await authService.login(user)
       } catch (error) {

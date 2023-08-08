@@ -12,7 +12,7 @@ import {MdOutlineInventory} from 'react-icons/md'
 import {AiOutlineHome} from 'react-icons/ai'
 import { IoClose, IoMenu } from "react-icons/io5";
 
-import ProfileMenuSel from "../sellers/profilSel/ProfilMenu";
+import ProfileMenuSel from "./profilSel/ProfilMenu";
 
 function NavbarSel () {
     const [show, setShow] = useState(true);

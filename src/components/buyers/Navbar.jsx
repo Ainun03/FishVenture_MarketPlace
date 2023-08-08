@@ -5,12 +5,12 @@ import { useNavigate,useMatch, useResolvedPath,Link } from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux";
 
 // icons
-import { FiSearch, FiShoppingCart, FiUser,FiLogIn } from "react-icons/fi";
-import {FaStethoscope,FaUserAlt} from 'react-icons/fa'
+// import { FiSearch, FiShoppingCart, FiUser,FiLogIn } from "react-icons/fi";
+import {FaUserAlt} from 'react-icons/fa'
 import { IoClose, IoMenu } from "react-icons/io5";
 
 // slice
-import { logout } from "../../slices/authSlice";
+// import { logout } from "../../slices/authSlice";
 
 // comp
 import ProfileMenu from "./profil/ProfilMenu";
@@ -19,8 +19,8 @@ import ProfileMenu from "./profil/ProfilMenu";
 export default function NavbarBuyer(){
     const [show, setShow] = useState(true);
     const [profileMenu, setProfileMenu] = useState(true);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
     const profileMenuClick = () => {
       setProfileMenu(!profileMenu);
