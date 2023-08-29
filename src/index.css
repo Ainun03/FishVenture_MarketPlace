@@ -6,10 +6,11 @@
     Safari and Opera .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
-    .no-scrollbar {
+    .hide-scroll-bar {
         -ms-overflow-style: none;
-        /* IE and Edge */
         scrollbar-width: none;
-        /* Firefox */
-    }
+      }
+      .hide-scroll-bar::-webkit-scrollbar {
+        display: none;
+      }
 }

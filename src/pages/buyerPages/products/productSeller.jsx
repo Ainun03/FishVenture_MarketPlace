@@ -1,19 +1,44 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 // icons
 import { IoChevronBackCircle } from 'react-icons/io5';
 import { BsFillChatDotsFill,BsCalendar4Week,BsTelephone } from 'react-icons/bs';
 import {BiTime,BiMap} from 'react-icons/bi'
-
 // route
+import { useDispatch, useSelector } from "react-redux";
 import NavbarBuyer from "../../../components/buyers/Navbar";
 import CardSellerList from "../../../components/buyers/cardSellerList";
 // redux
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getListBudidayaBuyer } from "../../../slices/buyer/buyerSlice";
 
-function ProductSeller(){
-    const navigate = useNavigate();
-    const [count, setCount] = useState(0)
+function ProductSeller(props){
+    const navigate = useNavigate()
+    const dispatch=useDispatch()
+    const { id } = useParams();
+    
+    const { pondBuyer,getBudidayaBuyer } = useSelector(
+        (store) => store.buyer
+    );
+    // const { buyer } = useSelector(state => state);
+
+    
+    // let item =pondBuyer;
+
+    // if (!pond) {  
+    //     pond = regions[0];
+    // } else {
+    //     // check if the user's city is registered on the dataset
+    //     pond = regions.find((region) =>
+    //         region.kota.find((city) => city === tempRegion.city)
+    //     );
+    // }
+    const item=pondBuyer.find((i) => i.id === id)
+ 
+    useEffect(() => {
+        dispatch(getListBudidayaBuyer({id:item.id}));
+     },[dispatch]);
+
 
     return(
         <Fragment>
@@ -29,19 +54,18 @@ function ProductSeller(){
                         data-aos="fade-right"
                         data-aos-durations="1000"
                         data-aos-delay="500">
-                            <img className="rounded-2xl" src='/assets/images/IMG_0003.JPG' alt='product'/>
+                            <img className="rounded-2xl h-[400px] shadow-md w-screen  object-cover" src={item ? item.image :  'https://static.vecteezy.com/system/resources/previews/003/475/012/original/confused-man-with-question-mark-concept-flat-illustration-free-vector.jpg'} alt="pond"/>
                         </div>
                         {/* End Carousel */}
                         <div className='-mt-14 md:flex  md:flex-col md:items-center md:justify-center md:mt-0 md:static relative container mx-auto max-w-sm md:max-w-none md:mx-0' 
                         data-aos="fade-left"
                         data-aos-durations="1000"
                         data-aos-delay="500">
-                            <div className='rounded-xl w-full bg-primary mb-6 bg-gray-300'>
+                            <div className='rounded-xl w-full mb-6 shadow-main shadow-slate-700 shadow-md bg-white'>
                                 <div className='shadow-main h-46  rounded-2xl p-4'>
-                                    <div className="flex justify-between">
-                                        
+                                    <div className="flex justify-between">    
                                         <div className=" flex items-center justify-center">
-                                            <strong className='font-semibold text-2xl'>Anonymous</strong>
+                                            <strong className='font-semibold uppercase text-2xl'>{item ? item.name : "Anonymous"}</strong>
                                         </div>
                                         <div>
                                             <img className='w-10 h-10 rounded-md' src="/assets/images/nyet.jpg" alt='profile' />
@@ -50,16 +74,22 @@ function ProductSeller(){
                                     <div className='info-profile pt-2'>
                                         {/* <strong className='text-sm font-medium'>{productData ? (productData.users.username).charAt(0).toUpperCase() + (productData.users.username).slice(1).toLowerCase() : 'Anonymous'}</strong> */}
                                         <div className="flex pt-2">
-                                            <div className="">
-                                                <BiMap size={20} className="text-primary"/>
+                                            <div>
+                                                <Link to={item ? item.url : "www.google.com"} target="_blank">
+                                                    <BiMap size={20} className="text-secondary"/>
+                                                </Link>
                                             </div>
+                                            {/* <div className="">
+                                            </div> */}
                                             <div className="">
-                                                <p className='text-xs ml-2 text-neutralGray'>Jl. Kemang Sel. No.99, RT.1/RW.2, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730</p>
+                                                <p className='text-xs ml-2 capitalize text-neutralGray'><span>{item ? item.detailAddress : "detailAlamat"}</span> <span>{item ? item.district.name : "kecamatan"} </span><span>{item ? item.city.name : "Kota"}</span> <span>{item ? item.province.name : "Provinsi"} </span><span>{item ? item.country.name : "Negara"}</span> 12730</p>
                                             </div>
                                         </div>
                                         <div className="flex pt-2">
                                             <div>
-                                                <BsTelephone size={15} className="text-primary"/>
+                                        
+                                                <BsTelephone size={15} className="text-secondary"/>
+                                                
                                             </div>
                                             <div>
                                                 <p className='text-xs ml-3 text-neutralGray'>(021) 71790991</p>
@@ -97,16 +127,23 @@ function ProductSeller(){
                             </div>
                         </div> */}
                             <div className='col-span-2 md:col-span-4 container mx-auto max-w-sm md:max-w-none md:mx-0 md:mt-0'
-                            data-aos="fade-left"
-                            data-aos-durations="1000"
-                            data-aos-delay="500">
+                            >
                                 <h1 className="font-bold text-lg text-gray-700">Jenis Ikan</h1>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                    <CardSellerList/>
-                                    <CardSellerList/>
-                                    <CardSellerList/>
-                                    
-                                </div>
+                                    { getBudidayaBuyer.length > 0  ? (
+                                    // <div className=" flex w-full bg-secondary justify-center h-full  ">
+                                    //     {getBudidayaBuyer.map(item => <CardSellerList key={item.id} buyer={item} />)}
+                                    // </div>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        {/* <h1>Produk Kosong</h1> */}
+                                        { getBudidayaBuyer.map(item => <CardSellerList key={item.id} buyer={item} />)}
+                                    </div>
+                                        
+                                    ):(
+                                        <div className=" flex w-full font-semibold text-gray-500 items-center justify-center h-full  ">
+                                            <h1>Produk Kosong</h1> 
+                                        </div>
+
+                                    )}
                                 
                             </div>
                         {/* button mobile */}

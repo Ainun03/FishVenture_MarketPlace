@@ -25,8 +25,49 @@ const jenisIkan = async (dataIkan,token) => {
   
     return response.data
   }
+  const kolamFoto = async (image) => {
+    const response = await axios.post(API_URL + 'upload-pool-photo', image,
+    {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "multipart/form-data",
+    },
+  }
+   
+    )
+    return response.data.data
+  }
+  const createPond = async (payload,thunkAPI) => {
+    const {token} = thunkAPI.getState().user.user.data
+    const response = await axios.post(API_URL + 'create-pond', payload,
+    {
+    headers: {
+      accept: "*/*",
+      Authorization: "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+   
+    )
+    return response.data.data
+  }
+  const createPool = async (image) => {
+    const response = await axios.post(API_URL + 'create-pool', image,
+    {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "multipart/form-data",
+    },
+  }
+   
+    )
+    return response.data.data
+  }
   const poolService = {
     jenisIkan,
+    kolamFoto,
+    createPond,
+    createPool
   }
   
   export default poolService

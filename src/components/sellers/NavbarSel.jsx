@@ -18,7 +18,6 @@ function NavbarSel () {
     const [show, setShow] = useState(true);
     const [profileMenu, setProfileMenu] = useState(true);
     const location = useLocation();
-    console.log(location);
 
     const profileMenuClick = () => {
         setProfileMenu(!profileMenu);
@@ -31,7 +30,7 @@ function NavbarSel () {
 	};
     return(
         <Fragment>
-            <div className='bg-tarnsparent shadow md:static flex w-full z-[30] md:block md:top-0 md:z-0'>
+            <div className='bg-transparent shadow  md:static flex w-full z-[30] md:block md:top-0 md:z-0'>
                 <div className="container mx-4 py-4 md:mx-auto justify-between  max-w-7xl md:px-6 flex md:py-4">
                     <button onClick={handleClick} className='bg-white md:hidden border rounded-lg p-2 text-xl'>
 						<IoMenu />
@@ -71,9 +70,6 @@ function NavbarSel () {
 						<IoClose />
 					</button>
 				</div>
-                {/* <div className="border drop-shadow-md shadow-2xl shadow-slate-500 px-4 w-72 hidden md:block "> */}
-                    
-
                     <div className=" h-full ">
                         <Link to="/home-sel/list">
                             <div className={

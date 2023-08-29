@@ -17,8 +17,8 @@ import ProfileComSel from "../../components/sellers/profilSel/ProfileCom";
                 <div className="mx-4">
                     <h1 className="font-bold text-2xl hidden md:block">Settings</h1>
                     <div className="grid grid-cols-1 md:grid-cols-3 md:gap-4">
-                        <div className="hidden md:block">
-                            <div className="card p-2 bg-white">
+                        <div className="hidden  md:block">
+                            <div className="card p-2">
                                 <h1 className="font-bold text-md">Profile</h1>
                                 <h1 className="font-bold text-md">Profile</h1>
                                 <h1 className="font-bold text-md">Profile</h1>

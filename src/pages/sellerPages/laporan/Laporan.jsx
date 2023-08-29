@@ -7,8 +7,9 @@ import { MdArrowForwardIos } from 'react-icons/md';
 
 import AllKolam from "../../../components/sellers/category/AllKolam";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 function Laporan () {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate()
     // return(
     //     <Fragment>
@@ -112,7 +113,9 @@ function Laporan () {
                         <div className='flex flex-row items-center'>
                           <FiHeart size={20} />
                           <button
-                            onClick={() => navigate('/home-sel/laporan/post-budidaya')}
+                            onClick={() => 
+                                navigate('/home-sel/laporan/post-budidaya')
+                              }
                           >
                             <span className='ml-2 text-base font-semibold'>Budidaya</span>
                           </button>
@@ -129,7 +132,11 @@ function Laporan () {
                       <BsBox className='my-auto mr-1' />
                       <span>Semua Produk</span>
                     </button>
-                    <button onClick={() => navigate('/home-sel/laporan/post-budidaya')} className={category === 'loved' ? 'snap-center rounded-lg flex flex-shrink-0 bg-primary text-white text-md px-4 py-2 transition ease-in-out duration-200' : 'snap-center rounded-lg flex flex-shrink-0 bg-[#E2D4F0] text-black text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'}>
+                    <button onClick={() =>
+                      navigate('/home-sel/laporan/post-budidaya')
+                    
+                       } 
+                       className={category === 'loved' ? 'snap-center rounded-lg flex flex-shrink-0 bg-primary text-white text-md px-4 py-2 transition ease-in-out duration-200' : 'snap-center rounded-lg flex flex-shrink-0 bg-[#E2D4F0] text-black text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'}>
                       <FiHeart className='my-auto mr-1' />
                       <span>Budidaya</span>
                     </button>

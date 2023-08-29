@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {loginUser} from "../../slices/authSlice"
+import {loginUser,getProfileUser} from "../../slices/authSlice"
 
 function FormLoginPembeli ({
     children,
@@ -70,11 +70,13 @@ function FormLoginPembeli ({
                     // }
                     if (initialValues.applicationType === "buyer"){
                         toast.dismiss();
-                        toast.success("Login berhasil!");                 
+                        toast.success("Login berhasil!");     
+                        dispatch(getProfileUser())            
                         navigate("/");
                     }else if(initialValues.applicationType === "seller"){
                         toast.dismiss();
                         toast.success("Login berhasil!");
+                        dispatch(getProfileUser())   
                         navigate("/home-sel");
                     }else if(initialValues.applicationType === "admin"){
                         toast.dismiss();

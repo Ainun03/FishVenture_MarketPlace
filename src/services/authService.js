@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-const API_URL = 'https://213.190.4.135:8080/'
+const API_URL = 'http://213.190.4.135:8080/'
 
 const register = async (userData) => {
     const response = await axios.post(API_URL + 'register', userData,
@@ -17,48 +17,32 @@ const register = async (userData) => {
         // }),
       }
     )
+    // const resJson=await response.json()
   
-    if (response.data) {
-      localStorage.setItem('user', JSON.stringify(response.data))
+    if (response.data.data) {
+      localStorage.setItem('user', JSON.stringify(response.data.data))
     }
   
-    return response.data
+    return response.data.data
   }
 
 const login = async (userData) => {
     const response = await axios.post(API_URL + 'login', userData)
   
     // const data = response.data;
-    if (response.data) {
+    if (response.data.data) {
       console.log(userData.applicationType)
-      localStorage.setItem('user', JSON.stringify(response.data))
+      localStorage.setItem('user', JSON.stringify(response.data.data))
     }
   
-    return response.data
+    return response.data.data
   }
 
-  const getUser = async (userData, thunkAPI) => {
-    const { token } = thunkAPI.getState().user.user;
-    console.log({token})
-    const response = await axios.get(API_URL + 'profile', userData,{
-      headers: {
-        accept: "*/*",
-        Authorization: "Bearer " + token,
-        'Content-Type': 'application/json',
-      },
-    })
-  
-    if (response.data) {
-      localStorage.setItem('user', JSON.stringify(response.data))
-    }
-  
-    return response.data
-  }
+
 
   const authService = {
     register,
     login,
-    getUser
   }
   
   export default authService

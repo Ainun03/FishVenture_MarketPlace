@@ -290,6 +290,7 @@ const AddKolam = () => {
                                                 <img
                                                     src={image}
                                                     className="object-cover h-full w-full rounded-lg"
+                                                    alt="preview"
                                                 />
                                             </div>
                                         ))}

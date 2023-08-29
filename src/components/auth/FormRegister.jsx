@@ -1,7 +1,7 @@
 import React, { Fragment,useState } from "react";
 
 // modal
-import ModalSellerForm from "./ModalsSellerForm";
+import ModalSellerForm from "../sellers/card/ModalsSellerForm";
 
 // icons
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -20,11 +20,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {registerUser} from "../../slices/authSlice"
 
 function FormRegister () {
-    // const [name, setName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [address, setAddress] = useState('');
-    // const [isSubmitted, setIsSubmitted] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [showModal, setShowModal] = useState(true);
 
@@ -39,6 +34,7 @@ function FormRegister () {
         // conpassword: "",
     };
     // const [conpassword, setConfPassword] = useState(initialValues.password ? initialValues.password : "",);
+
 
     const validationSchema = () => {
         const validationObject = {
@@ -63,6 +59,8 @@ function FormRegister () {
                 position: "top-center",
 				autoClose: 10000,
             });
+            console.log(values)
+
             dispatch(registerUser(values))
                 .unwrap()
                 .then(() => {
@@ -73,34 +71,9 @@ function FormRegister () {
         },
     });
 
-
-    // const clickRegister = () => {
-    //     setIsSubmitted(true);
-    // }
-// Modals
-    const modalClick = () => {
-        setShowModal(current => !current);
-    };
     return(
         <Fragment>
             <div className="relative">
-                <div className='modal'>
-                    <div className={`fixed overlay bg-black opacity-50 z-[999] h-full w-full inset-x-0 cursor-default transition ease-in-out duration-[850ms] ${showModal ? "hidden" : ""}`}>
-                    </div>
-                    <div className={`fixed top-[85%] md:top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white rounded-b-none rounded-t-2xl md:rounded-2xl z-[999] w-full h-full md:h-auto md:w-[360px] p-8 transition ease-in-out duration-700 ${showModal ? "translate-y-[100%] md:scale-0" : ""}`}>
-                        <div className='flex justify-between text-3xl -mt-5  mb-6 md:mb-0'>
-                            <img role='button' onClick={modalClick} className='mx-auto md:hidden' src='/assets/images/mobile-modal.png' alt='mobile-modal' />
-                            <h1 className=" hidden md:block text-primary font-bold">E-<span className="text-black underline decoration-primary">Fish</span>.</h1>
-                            <IoClose className='hidden md:block' role='button' onClick={modalClick} />
-                        </div>
-                        <ModalSellerForm 
-                        // image={productData.imageProduct[0]} productName={productData.productName} price={productData.price} 
-                        />
-                        <button onClick={modalClick} className='rounded-2xl bg-primary hover:bg-[#7126B5CC] w-full py-3 text-white text-sm font-medium'>
-                            Kirim
-                        </button>
-                    </div>
-                </div>
 
                 <div className=" border border-xl rounded-lg shadow-lg bg-white p-4"
                 data-aos="fade-left"
@@ -164,7 +137,7 @@ function FormRegister () {
                                     value={formik.values.password}
                                     // onChange={(e) => setPassword(e.target.value)}
                                     placeholder='Masukkan password'
-                                    className="peer ... px-3 py-3 bg-[#EEFFF6] border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg sm:text-sm focus:ring-1"
+                                    className="peer... px-3 py-3 bg-[#EEFFF6] border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg sm:text-sm focus:ring-1"
                                         />
                                 {
                                     isVisible ?

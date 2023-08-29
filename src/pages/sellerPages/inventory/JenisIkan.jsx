@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 // component
-import Input from "../../../components/sellers/form/Input";
+// import Input from "../../../components/sellers/form/Input";
 import Button from "../../../components/sellers/form/Button";
+import { Input } from "@material-tailwind/react";
 
 import { IoChevronBackCircle } from 'react-icons/io5';
 // route-dom
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { jenisIkan } from "../../../slices/seller/sellerSlice";
+import { createjenisIkan } from "../../../slices/seller/sellerSlice";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +19,6 @@ function JenisIkan(){
     const initialValues = {
         name: "",
         asal: "",
-        applicationType:"seller"
     };
     const validationSchema = () => {
         const validationObject = {
@@ -33,22 +33,22 @@ function JenisIkan(){
         initialValues,
         validationSchema,
         onSubmit: (values) => {
-            toast.loading("Menambahkan Kolam . . .");
-            dispatch(jenisIkan(
+            toast.loading("Menambahkan Jenis Ikan . . .");
+            dispatch(createjenisIkan(
                 values
                 ))
                 .unwrap()
                 .then(() => {
                     toast.dismiss();
-                    toast.success("Berhasil menambahkan Kolam!");
-                    navigate("/home-sel/laporan");
+                    toast.success("Berhasil menambahkan Jenis Ikan!");
+                    navigate("/home-sel/inventory");
                 });
 
         },
     });
     return(
         <Fragment>
-        <div className="relative" 
+        <div className="relative h-screen m-0" 
         data-aos="fade-up"
         data-aos-durations="1000"
         data-aos-delay="500">
@@ -59,11 +59,11 @@ function JenisIkan(){
             </Link>
             <div className="container px-4 mx-auto max-w-3xl pt-0 pb-20 md:py-7 relative">
                 <div className="text-center text-3xl hidden md:block font-semibold">
-                    <h1>Post Jenis Ikan</h1>
+                    <h1>Tambah Jenis Ikan</h1>
                 </div>
                 {/* <div className="flex container  mx-auto max-w-3xl pt-3" > */}			
                 <section className="pt-5 md:pt-8 pb-8">
-                    <div className="container-small relative">
+                    <div className="container-small relative ">
                         <p className="text-center font-medium mb-10 md:hidden pt-1">
                             Lengkapi Detail Jenis Ikan
                         </p>
@@ -72,16 +72,18 @@ function JenisIkan(){
                             method="POST"
                             encType="multipart/form-data"
                         >
-                            <fieldset className="flex flex-col mt-4 space-y-1">
-                                <label htmlFor="name">
+                            <fieldset className="flex flex-col  mt-4 space-y-1">
+                                {/* <label htmlFor="name">
                                     Nama Ikan{" "}
                                     <span className="text-red-500">*</span>
-                                </label>
+                                </label> */}
                                 <Input
+                                    label="Nama Ikan"
                                     type="text"
                                     id="name"
                                     name="name"
-                                    placeholder="Nama Ikan"
+                                    color="indigo"
+                                    // placeholder="Nama Ikan"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.name}
@@ -94,15 +96,17 @@ function JenisIkan(){
                                     )}
                             </fieldset>
                             <fieldset className="flex flex-col mt-4 space-y-1">
-                                <label htmlFor="asal">
+                                {/* <label htmlFor="asal">
                                     Asal{" "}
                                     <span className="text-red-500">*</span>
-                                </label>
+                                </label> */}
                                 <Input
+                                    label="Asal Ikan"
                                     type="text"
                                     id="asal"
                                     name="asal"
-                                    placeholder="Asal Benih Ikan"
+                                    color="indigo"
+                                    // placeholder="Asal Benih Ikan"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.long}
@@ -124,12 +128,12 @@ function JenisIkan(){
                                 >
                                     Preview
                                 </Button> */}
-                                <Button type="submit" className="w-full bg-primary ">
+                                <button type="submit" className="w-full text-gray-700 font-semibold  border-2 hover:italic bg-blue-500 hover:bg-blue-300 hover:text-white w-full p-3  shadow-main shadow-slate-700 cursor-pointer  overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
                                     {/* {location.pathname.includes("edit_kolam")
                                         ? "Perbarui"
                                         : "Terbitkan"} */}
                                         Terbitkan
-                                </Button>
+                                </button>
                             </div>
                         </form>
                     </div>

@@ -21,12 +21,11 @@ export default function NavbarBuyer(){
     const [profileMenu, setProfileMenu] = useState(true);
     // const navigate = useNavigate();
     // const dispatch = useDispatch();
-
     const profileMenuClick = () => {
       setProfileMenu(!profileMenu);
     };
 
-    const { isAuthenticated } = useSelector(
+    const { isAuthenticated,profil } = useSelector(
       (store) => store.user
     );
         
@@ -75,8 +74,9 @@ export default function NavbarBuyer(){
                 isAuthenticated ? (
                   <div className="">
                     <div className="flex justify-end gap-4 ">
-                        <div className="">
-                            <h1 className="text-[#053742]"><p className="font-thin text-[#808080] text-sm">Selamat Datang</p> Joko Purnomo </h1>     
+                    
+                        <div className=" ">
+                            <h1 className="text-right text-[#053742]"><p className="font-thin text-[#808080] text-sm">Selamat Datang</p> {profil ? profil.name : "Anonim"} </h1>     
                         </div>
                         <div className=" flex justify-center mx-auto md:mx-0 items-center">
                             <button onClick={profileMenuClick}

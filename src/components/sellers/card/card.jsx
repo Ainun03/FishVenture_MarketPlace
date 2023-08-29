@@ -11,15 +11,6 @@ function CardSeller(){
         <Fragment>
             <div className='card border-black bg-[#E8F0F2] border-2 hover:origin-top-left rounded-md p-2 shadow-main shadow-slate-700 h-56 cursor-pointer' 
             onClick={() => navigate('/home-sel/inventory/detail')}
-            
-            // onClick={() => {
-            // // Checking product seller with user logged\
-            // if ((item.userId == auth.login.id && auth.login.id !== undefined)) {
-            //     navigate(`/seller-product/${item.productId}`);
-            // } else {
-            //     navigate(`/buyer-product/${item.productId}`);
-            // }
-            // }}
              >
                 <img className="rounded-md h-[100px] w-screen object-cover" src='/assets/images/sang.png' alt='product' />
                 <div className="card-body px-1 pt-2 pb-3">

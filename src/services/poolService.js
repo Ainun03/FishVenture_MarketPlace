@@ -24,8 +24,14 @@ const pool = async (poolData) => {
   
     return response.data
   }
-const kolamFoto = async (userData) => {
-    const response = await axios.post(API_URL + '/upload-pool-photo', userData,
+const kolamFoto = async (image) => {
+    const response = await axios.post(API_URL + 'upload-pool-photo', image,
+    {
+    headers: {
+      accept: "*/*",
+      'Content-Type': 'application/json',
+    },
+  }
    
     )
   

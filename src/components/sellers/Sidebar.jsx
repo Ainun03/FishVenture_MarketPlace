@@ -3,38 +3,40 @@ import React, { Fragment } from "react";
 // icons
 import {BsNewspaper} from 'react-icons/bs'
 import {FaStethoscope} from 'react-icons/fa'
+import {GiMoneyStack} from 'react-icons/gi'
 import {MdOutlineInventory} from 'react-icons/md'
 import {AiOutlineHome} from 'react-icons/ai'
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 
+
 const Sidebar = () => {
     const location = useLocation();
-    console.log(location);
 
     return(
         <Fragment>
-            <div className="bg-gradient-to-r from-[#39A2DB] to-[#256D85]  text-white  drop-shadow-md shadow-2xl shadow-slate-500  rounded-r-2xl px-4 w-72 hidden md:block ">
+            <div className="bg-gradient-to-r from-[#39A2DB] to-[#256D85]  text-white  drop-shadow-md shadow-2xl shadow-slate-500 m-3  rounded-2xl px-4 w-48 hidden md:block ">
                 <Link to="/home-sel">
                     <div className={
                     "mt-4 absolute " +
                     (location.pathname === "/home-sel" ||
                     location.pathname === "/home-sel/"
                         ? "active-state text-[#0172AF]"
-                        : "nonActive-state")}
+                        : "nonActive-state"
+                        )}
                     >
                         <AiOutlineHome size={30}/>
                     </div>
                 </Link>
 
-                <div className=" h-full py-10 ">
+                <div className=" h-full py-10  ">
                     <Link to="/home-sel/list">
                         <div className={
-                                "home text-center p-2 mt-10 flex gap-3 hover:text-[#0172AF] " +
+                                "home text-sm flex gap-2 mt-4  font-medium text-white py-2 px-2 hover:bg-teal-500 hover:text-gray-600 hover:text-base rounded-md transition duration-150 ease-in-out " +
                                 (location.pathname === "/home-sel/list" ||
                                 location.pathname === "/home-sel/list/"
-                                ? "active-state text-[#0172AF] bg-gray-200 "
+                                ? "active-state bg-teal-500 text-gray-600 text-base "
                                 : "nonActive-state")
                         }>
                             <div className=" flex justify-center items-center">
@@ -44,16 +46,16 @@ const Sidebar = () => {
                         </div>
                     </Link>
                     
-                    <Link to="/">
+                    <Link to="/home-sel/transaksi">
                         <div className={
-                            "home text-center mt-2 p-2 flex gap-3  hover:text-[#0172AF] " +
-                            (location.pathname === "/" ||
-                            location.pathname === "/"
-                            ? "active-state text-[#0172AF] bg-gray-200"
+                            "home text-sm flex gap-2 mt-2  font-medium text-white py-2 px-2 hover:bg-teal-500 hover:text-gray-600 hover:text-base rounded-md transition duration-150 ease-in-out " +
+                            (location.pathname === "/home-sel/transaksi" ||
+                            location.pathname === "/home-sel/transaksi/"
+                            ? "active-state bg-teal-500 text-gray-600 text-base"
                             : "nonActive-state")
                         }> 
                             <div className=" flex justify-center items-center">
-                                <FaStethoscope size={25} />
+                                <GiMoneyStack size={25} />
                             </div>
                             <h1>Transaksi</h1>
                         </div>
@@ -61,10 +63,10 @@ const Sidebar = () => {
                     
                     <Link to="/home-sel/inventory">
                         <div className={
-                            "home text-center flex p-2 gap-3 mt-2 hover:text-[#0172AF] " +
+                            "home text-sm flex gap-2 mt-2  font-medium text-white py-2 px-2 hover:bg-teal-500 hover:text-gray-600 hover:text-base rounded-md transition duration-150 ease-in-out  " +
                             (location.pathname === "/home-sel/inventory" ||
                             location.pathname === "/home-sel/inventory"
-                            ? "active-state text-[#0172AF] bg-gray-200 "
+                            ? "active-state bg-teal-500 text-gray-600 text-base "
                             : "nonActive-state")
                         }> 
                             <div className=" flex justify-center items-center">
@@ -74,12 +76,12 @@ const Sidebar = () => {
                         </div>
                     </Link>
                     
-                    <Link to="/home-sel/laporan">
+                    {/* <Link to="/home-sel/laporan">
                         <div className={
-                            "home text-center mt-2 p-2 flex gap-3 hover:text-[#0172AF] " +
+                            "home text-sm flex gap-2 mt-2  font-medium text-white py-2 px-2 hover:bg-teal-500 hover:text-gray-600 hover:text-base rounded-md transition duration-150 ease-in-out " +
                             (location.pathname === "/home-sel/laporan" ||
                             location.pathname === "/home-sel/laporan"
-                            ? "active-state text-[#0172AF] bg-gray-200"
+                            ? "active-state bg-teal-500 text-gray-600 text-base"
                             : "nonActive-state")
 
                         }> 
@@ -88,7 +90,7 @@ const Sidebar = () => {
                             </div>
                             <h1>Laporan</h1>
                         </div>
-                    </Link>
+                    </Link> */}
                     
                 </div>
             </div>

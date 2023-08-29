@@ -5,28 +5,12 @@ import { toast } from "react-toastify";
 
 // get User from localstorage
 
-const pool = JSON.parse(localStorage.getItem('kolam'))
-    // ? JSON.parse(localStorage.getItem("kolam"))
-    // : {
-    
-    //       name:"",
-    //       countryID:"",
-    //       provinceID:"",
-    //       cityID:"",
-    //       districtID:"",
-    //       detailAddress:"",
-    //       noteAddress:"",
-    //       type:"",
-    //       teamID:"",
-    //       listPool:"",
-    //       image:"",
-    //       message: '',
-    //   };
-
+const pool = JSON.parse(localStorage.getItem('pool'))
 const initialState = {
     // ...pool
-    kolam: {},
-    imageKolam: {},
+    // pool: pool ? pool : {},
+    pool:  {},
+    harga: {},
     // isError: false,
     // isSuccess: false,
     // isLoading: false,
@@ -34,11 +18,11 @@ const initialState = {
 };
 
 export const kolamSeller = createAsyncThunk(
-    "/create-pool",
+    "#",
     async (payload, thunkAPI) => {
       console.log(payload)
       try {
-        return await poolService.pool(payload)
+        return (payload)
       } catch (error) {
         const message =
           (error.response &&
@@ -52,11 +36,13 @@ export const kolamSeller = createAsyncThunk(
       }
     }
   );
-  export const imageKolamSeller = createAsyncThunk(
-    "/upload-pool-photo",
-    async (image, thunkAPI) => {
+
+  export const hargaSeller = createAsyncThunk(
+    "/harga",
+    async (payload, thunkAPI) => {
+      console.log(payload)
       try {
-        return await poolService.pool(image)
+        return (payload)
       } catch (error) {
         const message =
           (error.response &&
@@ -70,60 +56,39 @@ export const kolamSeller = createAsyncThunk(
       }
     }
   );
-
-
-
 
 export const kolamSlice = createSlice({
-  name: "kolam",
+  name: "pool",
   initialState,
   reducers: {
     logout: (state) => {
-        localStorage.removeItem("kolam");
-        // state.isAuthenticated = false;
+        localStorage.removeItem("pool");
         state.kolam= {}
-        // state.isError= false;
-        // state.isSuccess= false;
-    // isLoading: false,
-    //   state.id = "";
-    //   state.token = "";
-    //   state.name = "";
-    //   state.email = "";
-    //   state.type = "";
-      // state.address = { city: "", street: "" };
-      // state.phoneNumber = "";
-      // state.imageUrl = "";
-      // state.login = {
-      //   isAuthenticated:false
-      // };
-      // state.register={};
     },
   },
   extraReducers: (builder) => {
 
     builder      
       .addCase(kolamSeller.pending, (state) => {
-        state.isLoading = true
       })
       .addCase(kolamSeller.fulfilled, (state, action) => {
         // state.isAuthenticated = true;
-        state.kolam = action.payload
-        console.log(state.kolam)
+        state.pool = action.payload ? action.payload : {}
+        console.log(state.pool)
       })
       .addCase(kolamSeller.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       }) 
-      .addCase(imageKolamSeller.pending, (state) => {
-        state.isLoading = true
+      .addCase(hargaSeller.pending, (state) => {
       })
-      .addCase(imageKolamSeller.fulfilled, (state, action) => {
+      .addCase(hargaSeller.fulfilled, (state, action) => {
         // state.isAuthenticated = true;
-        state.imageKolam = action.payload
-        console.log(state.imageKolam)
+        state.harga = action.payload ? action.payload : {}
+        console.log(state.harga)
       })
-      .addCase(imageKolamSeller.rejected, (state, action) => {
+      .addCase(hargaSeller.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

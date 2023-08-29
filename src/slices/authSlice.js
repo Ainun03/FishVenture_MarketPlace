@@ -17,7 +17,10 @@ const role = JSON.parse(localStorage.getItem("user"))
 const initialState = {
     isAuthenticated,
     // ...user
-    user: user ? user : null,
+    user: user ? user : 
+    {
+      applicationType:""
+    },
     profil: {},
     role: role ? role: "",
     isError: false,
@@ -63,44 +66,23 @@ export const loginUser = createAsyncThunk(
       }
     }
   );
-  export const getUser = createAsyncThunk(
+  export const getProfileUser = createAsyncThunk(
     "/profile",
-    async (thunkAPI) => {
-      const { token,applicationType, } = thunkAPI.getState().user.user.data;
-      // const { applicationType } = thunkAPI.getState().user.user.data;
-      console.log({applicationType})
-      const url = `http://213.190.4.135:8080/profile`
-      try {
-        // return await authService.getUser(payload)  
-        const resp = await axios.get(url, {applicationType}, {
-          headers: {
+    async (payload, thunkAPI) => {
+        
+        const url = `http://213.190.4.135:8080/profile`
+        const { token } = thunkAPI.getState().user.user;
+    try {
+        const resp = await axios.get(url,
+          {
+            headers: {
               Authorization: "Bearer " + token,
               accept: "*/*",
               "Content-Type": "multipart/form-data",
-              // 'Content-Type': 'application/json',
-          },
-      });
-      // remove id from response
-      const { data } = resp.data.data;
-      console.log({data})
-      return data;
-        // if (isAuthenticated){
-        //   const { token } = thunkAPI.getState().user.user.data;
-        //   console.log({token})
-        //   res = await axios.get(url,
-        //     {
-        //       headers: {
-        //         Authorization: "Bearer " + token,
-        //         accept: "*/*",
-        //         "Content-Type": "multipart/form-data",
-        //       },
-  
-        //   })
-        // }else {
-        //   res = await axios.get(url);
-        // return res.data
-        // return await authService.getUser(user)
-        // }
+            },
+          })
+
+        return resp.data.data;
       } catch (error) {
         const message =
           (error.response &&
@@ -145,22 +127,10 @@ export const authSlice = createSlice({
     logout: (state) => {
         localStorage.removeItem("user");
         state.isAuthenticated = false;
-        state.user= null;
+        state.user= null
         state.isError= false;
         state.isSuccess= false;
-    // isLoading: false,
-    //   state.id = "";
-    //   state.token = "";
-    //   state.name = "";
-    //   state.email = "";
-    //   state.type = "";
-      // state.address = { city: "", street: "" };
-      // state.phoneNumber = "";
-      // state.imageUrl = "";
-      // state.login = {
-      //   isAuthenticated:false
-      // };
-      // state.register={};
+        state.profil={}
     },
   },
   extraReducers: (builder) => {
@@ -190,27 +160,24 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
-        state.role=action.payload.data.applicationType
-        console.log(state.user)
-        console.log(state.role)
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       })
-      .addCase(getUser.pending, (state) => {
+      .addCase(getProfileUser.pending, (state) => {
         state.isLoading = true
       })
 
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(getProfileUser.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.isLoading = false
         state.isSuccess = true
         state.profil = action.payload
         console.log(state.profil)
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(getProfileUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload

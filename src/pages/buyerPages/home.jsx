@@ -5,7 +5,8 @@ import NavbarBuyer from "../../components/buyers/Navbar";
 import Cardbuyer from "../../components/buyers/card";
 import Footer from "../../components/buyers/Footer";
 
-// AOS
+import { useDispatch, useSelector } from 'react-redux';
+import { listPondBuyer } from "../../slices/buyer/buyerSlice";
 
 // icons
 import { FiSearch } from "react-icons/fi";
@@ -68,35 +69,27 @@ const CenteredCarousel = () => {
 function HomePage() {
   document.title = "Home Page";
   const [category, setCategory] = useState('all');
-  const handleCategoryClick = (ctg) => {
-      setCategory(ctg);
-    };
+ 
+  const {isAuntheticated} =useSelector(
+    (store) =>store.user
+  )
+  const { pondBuyer } = useSelector(
+    (store) => store.buyer
+  );
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (isAuntheticated !== true){
+      dispatch(listPondBuyer())
+    }
+  }, [dispatch,isAuntheticated]);
+
+  
+
+  //  else return <Navigate to="/" replace />
 
   // Fill State When User Change Category
-  useEffect(() => {
-    switch (category) {
-      case 'all':
-        // productFilter(category);
-        break;
-      case 'Pakaian':
-        // productFilter(category);
-        break;
-      case 'Elektronik':
-        // productFilter(category);
-        break;
-      case 'Kesehatan':
-        // productFilter(category);
-        break;
-      case 'Kendaraan':
-        // productFilter(category);
-        break;
-      case 'Hobi':
-        // productFilter(category);
-        break;
-      default:
-        break;
-    }
-  }, [category]);
 
   const slider = {
     className: "center",
@@ -126,18 +119,27 @@ function HomePage() {
                     </Slider>
                         <Cardbuyer/>
                   </div> */}
-                  <div className="py-4 mx-8 overflow-x-auto no-scrollbar text-clip" 
+                  <div className=" mx-8 text-clip" 
                      data-aos="fade-up-left"
                      data-aos-durations="1000"
                      data-aos-delay="1000">
-                    <div className="gap-4 flex "  
+                       <div className="flex justify-between py-3">
+                         <div className="font-semibold text-lg text-gray-500">
+                           <h1>Panen Terdekat</h1>
+                         </div>
+                         <div className="font-semibold text-lg text-blue-500">
+                           <h1>Lihat Semua</h1>
+                         </div>
+                       </div>
+                    <div className="flex overflow-x-scroll hide-scroll-bar pb-4 "  
                         >
-                        <Cardbuyer />
-                        <Cardbuyer />
-                        <Cardbuyer />
-                        <Cardbuyer />
-                        <Cardbuyer />
-                        <Cardbuyer />
+                          {/* <div className="grid grid-cols-1 xs-grid-cols-2 px-3 lg:grid-cols-3 md:grid-cols-2 gap-2"> */}
+                          <div className=" flex flex-nowrap gap-4">
+                              {pondBuyer.length > 0 && pondBuyer.map(item => 
+                                <Cardbuyer key={item.id} buyer={item} />
+                              )}
+                          </div>
+                                      
                     </div>
                   </div>
                   <div className="" data-aos="zoom-in"
@@ -150,7 +152,7 @@ function HomePage() {
                   <div className="mx-8">
                     {/* <h1 className="text-xl text-center font-bold ">Category</h1> */}
                     <div className=" gap-10  ">
-                      <div className=" pt-4">
+                      <div className=" ">
                         {/* <div className="list-category flex overflow-x-auto no-scrollbar text-clip">
                           <button onClick={() => handleCategoryClick('all')} className={
                             category === 'all' ? 'snap-center rounded-lg flex mr-4 bg-primary text-white text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200' : 'snap-center rounded-lg flex mr-4 bg-secondary text-[#3C3C3C] text-md px-4 py-2 hover:bg-primary hover:text-white transition ease-in-out duration-200'
@@ -174,27 +176,34 @@ function HomePage() {
                           >
                               <Cardbuyer/>
                           </div> */}
-                        <div className="py-4 overflow-x-auto no-scrollbar text-clip" 
+                        <div className="py-4 " 
                           data-aos="fade-up-left"
                           data-aos-durations="1000"
                           data-aos-delay="1000">
-                          <div className="gap-4 flex "  
-                              >
-                              <Cardbuyer />
-                              <Cardbuyer />
-                              <Cardbuyer />
-                              <Cardbuyer />
-                              <Cardbuyer />
-                              <Cardbuyer />
-                          </div>
+                            <div className="flex justify-between py-3">
+                              <div className="font-semibold text-lg text-gray-500">
+                                <h1>Lainnya</h1>
+                              </div>
+                              <div className="font-semibold text-lg text-blue-500">
+                                <h1>Lihat Semua</h1>
+                              </div>
+                            </div>
+                            <div className="flex overflow-x-scroll hide-scroll-bar pb-4 "  
+                                >
+                                  {/* <div className="grid grid-cols-1 xs-grid-cols-2 px-3 lg:grid-cols-3 md:grid-cols-2 gap-2"> */}
+                                  <div className=" flex flex-nowrap gap-4">
+                                      {pondBuyer.length > 0 && pondBuyer.map(item => 
+                                        <Cardbuyer key={item.id} buyer={item} />
+                                      )}
+                                  </div>
+                                              
+                            </div>
                         </div>
 
                       </div>
                     </div>
                   </div>
                   <div className="grid mx-36 pt-4 max-w-screen-xl grid-cols-1 h-full justify-items-center items-center md:grid-cols-2  ">
-                        
-
                         <div className="flex-col ">
                           <div className="text-center md:text-right h-full">
                               <h1 className="text-3xl tracking-wider  font-bold">Download The App</h1>
@@ -207,7 +216,7 @@ function HomePage() {
                         </div>
 
                         <div className="flex-col pt-4 md:pt-0"
-                        data-aos="fade-right"
+                        data-aos="fade-gri right"
                         data-aos-durations="1000"
                         data-aos-delay="500">
                             <div className="h-full">

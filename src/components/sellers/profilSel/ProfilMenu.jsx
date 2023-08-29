@@ -9,6 +9,7 @@ import { FiLogIn, FiUser } from "react-icons/fi";
 import { useDispatch, useSelector } from 'react-redux';
 
 import {logout} from '../../../slices/authSlice'
+import { logoutSeller } from '../../../slices/seller/sellerSlice';
 
 function ProfileMenuSel({ hidden }) {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ function ProfileMenuSel({ hidden }) {
       {hidden ? (
         <button
             onClick={() => {  
+              navigate('/auth-page/login-penjual');
               dispatch(logout());
+              dispatch(logoutSeller());
             }}
         >
             <div className='flex border-t border-gray-200 items-center py-3 gap-2 cursor-pointer'>
@@ -38,6 +41,7 @@ function ProfileMenuSel({ hidden }) {
         </button>
       ) : (<div onClick={() => {
         navigate('/auth-page/login-penjual');
+        dispatch(logout() && logoutSeller() );
       }} className='flex border-t border-gray-200 items-center py-3 gap-2 cursor-pointer'>
         <FiLogIn size={20} />
         <span>Masuk</span>

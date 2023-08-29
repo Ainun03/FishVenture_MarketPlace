@@ -1,8 +1,11 @@
 import React,{useEffect} from 'react';
 import { BrowserRouter, Routes, Route,Navigate,useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 // ----  Rendering  ----- \\ 
+import { getListCountry } from './slices/listAddressSlice';
+import { getProfileUser } from './slices/authSlice';
+
 // ----- AUTH ---- \\\
 import AuthPage from './pages/auth/AuthPage'
 import FormLogin from './components/auth/FormLogin';
@@ -23,27 +26,31 @@ import Selesai from './components/buyers/pesanan/selesai';
 
 // ----- SELLER ------ \\\\
 import HomeSel from './pages/sellerPages/homeSel'
-import {HomeDashboard} from './pages/sellerPages/HomeDashboard'
+import { HomeDashboard } from './pages/sellerPages/HomeDashboard'
 import ListDas from './pages/sellerPages/ListDash';
   // Seller--inventory----////
 import Invent from './pages/sellerPages/inventory/Inventory';
-import AddProduct from './pages/sellerPages/inventory/AddProduct';
+import AddProductBudidaya from './pages/sellerPages/inventory/AddProductBudidaya';
 import DetailSeller from './pages/sellerPages/inventory/DetailProduk';
+import JenisIkan from './pages/sellerPages/inventory/JenisIkan';
 
 import ProfileSel from './pages/sellerPages/Profile';
 
   //  Seller--Laporan----////
+import TransaksiSeller from './pages/sellerPages/Transaksi';
 import Laporan from './pages/sellerPages/laporan/Laporan';
 import KolamDetail from './pages/sellerPages/laporan/laporanKolamDetail';
 import AddKolam from './pages/sellerPages/laporan/AddKolam';
-import JenisIkan from './pages/sellerPages/laporan/JenisIkan';
 import AddBudidaya from './pages/sellerPages/laporan/AddBudidaya';
+import UpdateProduct from './pages/sellerPages/inventory/updateProduct';
 
 // Monitoring Page
 import HomeMon from './pages/monitoring/homeMon';
 import { HomeMonitor } from './pages/monitoring/homeCall';
 import DashboardMon from './components/monitoring/Dashboard/DashboardMon';
-import Perizinan from './pages/monitoring/Perizinan';
+import Perizinan from './pages/monitoring/perizinan/Perizinan';
+import DetailStatusAdmin from './pages/monitoring/perizinan/DetailStatus';
+import Data from './components/monitoring/Data';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,48 +59,73 @@ import Flask from './pages/Testing';
 
 
 function App() {
+  const dispatch = useDispatch();
   // const navigate = useNavigate();
-  const {isAuntheticated,user} =useSelector(
+  const {isAuntheticated, user} =useSelector(
     (store) =>store.user
   )
-  console.log(user)
-  const RoleRoute = ({ children }) => {
-    if (user.data.applicationType !== "buyer"){ 
-      // <Navigate ("/")   
-      // <Navigate  to="/" />
+  const {isActivate, pond} =useSelector(
+    (store) =>store.seller
+  )
+  
+  const ActiveUser =({children})=>{
+    if (isActivate) {
       return children;
-    }else if(user.data.applicationType !== "seller"){
-      // <Navigate  to="/home-sel" replace/>
+    } else return <Navigate to="/home-sel/laporan/post-budidaya" replace />;
+  }
+  const StatusPengajuan =({children})=>{
+    if (pond.status !=="reviewed"){
       return children;
-      // Navigate ("/home-sel")
-    }else if(user.data.applicationType !== "admin"){
-      // Navigate ("/home-mon")
-      // <Navigate  to="/home-mon" replace/>
-      return children;
-    } else return <Navigate to="/" replace />
-  };
+    }
+    else return <Navigate to="/home-sel/list" replace />;
+  }
+
+  // if (isAuntheticated !== true){
+  //     useEffect(()=>{
+  //       dispatch(getProfileUser())
+  //     },[dispatch])
+  // }
 
   useEffect(() => {
-    // if (isAuntheticated) {
-    //   <Navigate  to="/" replace/>
-    // }
-    if (user && user.data.applicationType !== "seller") {
-      <Navigate  to="/home-sel" replace/>
-      // navigate('/home-sel')
-      return 
+    if (isAuntheticated !== true){
+      dispatch(getProfileUser())
     }
-  }, [ user, Navigate]);
+  }, [dispatch,isAuntheticated]);
+  
+  useEffect(() =>{
+    if (isAuntheticated !== true){
+      dispatch(getListCountry())
+    }
+    },[dispatch,isAuntheticated])
 
-  const AuthRoute = ({ children }) => {
-    if (!isAuntheticated) {
-        return children;
-    } else return <Navigate to="/profile" replace />;
+
+  const RoleRouteSeller = ({ children }) => {
+    if (user.applicationType !== "seller"){ 
+      return children;
+    } else return <Navigate to="/home-sel" replace />
   };
-  const ContentRoute = ({ children }) => {
-    if (isAuntheticated) {
-        return children;
-    } else return <Navigate to="/login" replace />;
-  };
+
+  // useEffect(() => {
+  //   // if (isAuntheticated) {
+  //   //   <Navigate  to="/" replace/>
+  //   // }
+  //   if (user && user.data.applicationType !== "seller") {
+  //     <Navigate  to="/home-sel" replace/>
+  //     // navigate('/home-sel')
+  //     return 
+  //   }
+  // }, [ user, Navigate]);
+
+  // const AuthRoute = ({ children }) => {
+  //   if (!isAuntheticated) {
+  //       return children;
+  //   } else return <Navigate to="/profile" replace />;
+  // };
+  // const ContentRoute = ({ children }) => {
+  //   if (isAuntheticated) {
+  //       return children;
+  //   } else return <Navigate to="/login" replace />;
+  // };
 
   return (
     <BrowserRouter>
@@ -112,7 +144,14 @@ function App() {
       />
       <Routes >
         {/* Auth */}
-        <Route path='/' element={<HomePage />} />
+        <Route 
+          path='/' 
+          element={
+            <RoleRouteSeller>
+              <HomePage />
+            </RoleRouteSeller>
+          } 
+        />
         <Route element={<AuthPage />}>
           <Route path='auth-page' element={<AuthDashboard />} />
           <Route path='auth-page/login-penjual' element={<FormLogin />} />
@@ -121,8 +160,8 @@ function App() {
         </Route>
         {/* ------- */}
         <Route path='/flask' element={<Flask />} />
-        <Route path='/product-detail' element={<ProductDetail />} />
-        <Route path='/product-list-seller' element={<ProductSeller />} />
+        <Route path='/product-detail/:id' element={<ProductDetail />} />
+        <Route path='/product-list-seller/:id' element={<ProductSeller />} />
         {/* buyer */}
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/buyer-profil' element={<ProfilBuyer />} />
@@ -138,38 +177,65 @@ function App() {
             <HomeSel />
           // </RoleRoute>
         } >        
-            <Route path="home-sel" 
+          <Route path="home-sel" 
               element={
-              
-                <HomeDashboard />
-                   
-            }></Route> 
+                <HomeDashboard />      
+            }/> 
             <Route path="home-sel/list" element={
-            <ListDas />
-            }></Route>
-            <Route path="home-sel/inventory" element={<Invent />}></Route>
-            <Route path="home-sel/inventory/post-product" element={<AddProduct />}></Route>
-            <Route path="home-sel/inventory/detail" element={<DetailSeller />}></Route>
-            <Route path="home-sel/laporan" element={<Laporan />}></Route>
-            <Route path="home-sel/laporan/post-kolam" element={<AddKolam />}></Route>
-            <Route path="home-sel/laporan/post-budidaya" element={<AddBudidaya />}></Route>
-            <Route path="home-sel/laporan/post-jenis-ikan" element={<JenisIkan />}></Route>
-            <Route path="home-sel/laporan/detail" element={<KolamDetail />}></Route>
-            <Route path="home-sel/profil" element={<ProfileSel />}></Route>
+              <ListDas />
+            }/>
+            <Route 
+              path="home-sel/transaksi" 
+              element={
+                <ActiveUser>
+                  <StatusPengajuan>
+                    <TransaksiSeller />
+                  </StatusPengajuan>
+                </ActiveUser>                   
+              }
+            />
+              <Route 
+                path="home-sel/inventory" 
+                element={
+                  <Invent/>
+                  // <ActiveUser>
+                  //   <StatusPengajuan>
+                  //   </StatusPengajuan>
+                  // </ActiveUser>
+                }/>
+              <Route 
+                path="home-sel/inventory/post-budidaya" 
+                element={
+                  // <ActiveUser>
+                    // <StatusPengajuan>
+                      <AddProductBudidaya />
+                    // </StatusPengajuan>
+                  // </ActiveUser>
+                }
+                ></Route>
+              <Route path="home-sel/inventory/detail" element={<DetailSeller />}/>
+              <Route path="home-sel/inventory/post-jenis-ikan" element={<JenisIkan />}/>
+              <Route path="home-sel/inventory/update-product/:id" element={<UpdateProduct />}/>
+              <Route path="home-sel/laporan" element={<Laporan />}/>
+              <Route path="home-sel/laporan/post-kolam" element={<AddKolam />}></Route>
+              <Route path="home-sel/laporan/post-budidaya" element={<AddBudidaya />}></Route>
+              <Route path="home-sel/laporan/detail" element={<KolamDetail />}></Route>
+              <Route path="home-sel/profil" element={<ProfileSel />}></Route>
         </Route>
         {/* Monitoring */}
-        <Route element={
-          
-            <HomeMon/>
-          
+        <Route 
+          element={
+            <RoleRouteSeller>
+              <HomeMon/>   
+            </RoleRouteSeller>
           } >
-          <Route path="home-mon" element={
-            
-              <HomeMonitor />
-            
+          <Route path="home-mon" element={       
+              <HomeMonitor />   
           }></Route>
           <Route path="home-mon/dashboard-mon" element={<DashboardMon />}></Route>
           <Route path="home-mon/perizinan" element={<Perizinan />}></Route>
+          <Route path="home-mon/perizinan/detail-izin/:id" element={<DetailStatusAdmin checkStatus={true}/>}></Route>
+          <Route path="home-mon/data" element={<Data/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
