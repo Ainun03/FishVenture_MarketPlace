@@ -20,7 +20,7 @@ const persistConfigBuyer = {
   }; 
 
 const persistedBuyer=persistReducer(persistConfigBuyer,buyerSlice)
-const persistedAdmin=persistReducer(persistConfigBuyer,adminSlice)
+const persistedAdmin=persistReducer(persistConfigAdmin,adminSlice)
 
 const reducer={
 // persist ====
