@@ -6,7 +6,7 @@ export const getUsers = createAsyncThunk(
     "/profile",
     async ( {applicationType}, thunkAPI) => {
       // console.log({applicationType})
-      const url = `http://213.190.4.135:8080/profile`
+      let url=`https://fishventure.site/profile`
       try {
         const { isAuthenticated } = thunkAPI.getState().user;
         let resp;

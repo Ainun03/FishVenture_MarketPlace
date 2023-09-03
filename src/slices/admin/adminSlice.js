@@ -55,7 +55,8 @@ export const updatePond = createAsyncThunk(
     async (payload,thunkAPI) => {
         console.log(payload)
         const { token } = thunkAPI.getState().user.user;
-        let url=`http://213.190.4.135:8080/update-pond-status`
+        let url=`https://fishventure.site/update-pond-status`
+        // let url=`http://213.190.4.135:8080/update-pond-status`
         // let url = `${process.env.REACT_APP_BASE_URL}/api/v1/products/show/${id}`;
 
         try {
