@@ -9,6 +9,7 @@ import { FiLogIn, FiUser } from "react-icons/fi";
 import { useDispatch, useSelector } from 'react-redux';
 
 import {logout} from '../../../slices/authSlice'
+import { logoutBuyer } from '../../../slices/buyer/buyerSlice';
 
 function ProfileMenu({ hidden }) {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ function ProfileMenu({ hidden }) {
       {hidden ? (
         <button
             onClick={() => {  
+              navigate('/auth-page/login-pembeli');
               dispatch(logout());
+              dispatch(logoutBuyer());
             }}
         >
             <div className='flex border-t border-gray-200 items-center py-3 gap-2 cursor-pointer'>

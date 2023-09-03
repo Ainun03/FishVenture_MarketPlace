@@ -15,8 +15,8 @@ import CardSeller from "../../../components/sellers/card/card";
 // slice
 import { getKolam, getJenisIkan, getBudidaya } from "../../../slices/seller/sellerSlice";
 
-
 function Invent() {
+  
   const [category, setCategory] = useState(['kolam','Jenis-Ikan','Budidaya']);
   const dispatch = useDispatch();
 
@@ -148,8 +148,8 @@ function Invent() {
         </div> */}
         <div className='w-full'>
           {category === 'kolam' && <AllKolam />}
-          {category === 'Jenis-Ikan' && <AllIkan />}
-          {category === 'Budidaya' && <AllBudidaya />}
+          {category === 'Jenis-Ikan' && <AllIkan status={pond.status} />}
+          {category === 'Budidaya' && <AllBudidaya status={pond.status}/>}
         </div>    
       </div>
 

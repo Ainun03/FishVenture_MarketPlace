@@ -2,12 +2,14 @@ import React, { Fragment } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import CardIkan from '../card/cardIkan';
 
+import { toast } from "react-toastify";
+
+
 // Redux
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-
-const AllIkan = (props) => {
+const AllIkan = ({status}) => {
   const { getIkan } = useSelector(
     (store) => store.seller
   );
@@ -16,7 +18,22 @@ const AllIkan = (props) => {
     return (
         <Fragment>     
             <div className='w-full  pb-5 px-4  flex justify-end '>
-                <button onClick={() => navigate('/home-sel/inventory/post-jenis-ikan')}
+                <button onClick={() => {
+                  if ((status === "reviewed" || status === "submission"  )) {
+                    return toast.error('Tunggu Hingga Pengajuan Anda Diterima!', {
+                          position: "top-center",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          });  
+                  } else{
+                    return navigate('/home-sel/inventory/post-jenis-ikan')}
+                  }             
+                }
                  className=' p-2 rounded-3xl hover:bg-blue-200 hover:border-blue-300 hover:text-blue-500 border-b-4 bg-primary border-dashed border-blue-600 w-32 '>
                     <span className=''>Tambah </span>
                 </button>

@@ -214,13 +214,13 @@ const AddBudidaya = (position) => {
             values.longitude=initialValues.longitude
             console.log(values)
             toast.loading("Menambah Kolam Budidaya . . .");
-            // dispatch(createPondSeller(values))
-            //     .unwrap()
-            //     .then(() => {
-            //         toast.dismiss();
-            //         toast.success("Menambah Kolam Budidaya");
-            //         navigate("/home-sel");
-            //     });
+            dispatch(createPondSeller(values))
+                .unwrap()
+                .then(() => {
+                    toast.dismiss();
+                    toast.success("Menambah Kolam Budidaya");
+                    navigate("/home-sel");
+                });
         },
     });
 

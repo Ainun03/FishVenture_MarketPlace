@@ -16,7 +16,6 @@ import { getFilePlugin } from "@react-pdf-viewer/get-file"
 
 import GoogleMapReact from 'google-map-react';
 
- 
 
 // applicationType:  ["buyer","seller"],
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
@@ -35,9 +34,6 @@ function DetailStatusAdmin({checkStatus}){
     const { listPond } = useSelector(
         (store) => store.admin
     );
-
-    console.log(statusSubmission[1])
-    
     const { id } = useParams();
     const listPondStatus=listPond.find(i => i.id === id)
     const clickStatus = () => {

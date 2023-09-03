@@ -10,6 +10,7 @@ import { updatePond } from "../../../slices/admin/adminSlice";
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { IoThermometer } from "react-icons/io5";
 
 const Perizinan =()=> {
     const [listPond,setListPond]=  useState([]);
@@ -23,18 +24,16 @@ const Perizinan =()=> {
 
     //   let arr = Array.apply(null, listPond.length).map(Number.call, Number);
     const statusSubmission = [ "submission" ,"reviewed" ,"actived" ,"disabled"]
-    
-
-    
+     
     return(
         <Fragment>
             <div className="h-full">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2 py-3">
                     <div className="">
 
-                    <div class=" 2xl:container">
-                            <div class="md:col-span-2 lg:col-span-1" >
-                                <div class="h-full py-4 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
+                    <div className=" 2xl:container">
+                            <div className="md:col-span-2 lg:col-span-1" >
+                                <div className="h-full py-4 px-6 space-y-6 rounded-xl border border-gray-200 bg-white">
                                         <div className="flex border-b justify-between "> 
                                             <div className="font-semibold ">
                                                 <h1> Total Pembudidaya</h1>
@@ -43,7 +42,7 @@ const Perizinan =()=> {
                                                 <BsThreeDotsVertical/>
                                             </div>
                                         </div>
-                                    <svg class="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className="w-40 m-auto opacity-75" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M73.1866 5.7129C81.999 5.7129 90.725 7.44863 98.8666 10.821C107.008 14.1933 114.406 19.1363 120.637 25.3675C126.868 31.5988 131.811 38.9964 135.184 47.138C138.556 55.2796 140.292 64.0057 140.292 72.818C140.292 81.6304 138.556 90.3565 135.184 98.4981C131.811 106.64 126.868 114.037 120.637 120.269C114.406 126.5 107.008 131.443 98.8666 134.815C90.725 138.187 81.999 139.923 73.1866 139.923C64.3742 139.923 55.6481 138.187 47.5066 134.815C39.365 131.443 31.9674 126.5 25.7361 120.269C19.5048 114.037 14.5619 106.64 11.1895 98.4981C7.81717 90.3565 6.08144 81.6304 6.08144 72.818C6.08144 64.0057 7.81717 55.2796 11.1895 47.138C14.5619 38.9964 19.5048 31.5988 25.7361 25.3675C31.9674 19.1363 39.365 14.1933 47.5066 10.821C55.6481 7.44863 64.3742 5.7129 73.1866 5.7129L73.1866 5.7129Z" stroke="#e4e4f2" stroke-width="4.89873"/>
                                         <path d="M73.5 23.4494C79.9414 23.4494 86.3198 24.7181 92.2709 27.1831C98.222 29.6482 103.629 33.2612 108.184 37.816C112.739 42.3707 116.352 47.778 118.817 53.7291C121.282 59.6802 122.551 66.0586 122.551 72.5C122.551 78.9414 121.282 85.3198 118.817 91.2709C116.352 97.222 112.739 102.629 108.184 107.184C103.629 111.739 98.222 115.352 92.2709 117.817C86.3198 120.282 79.9414 121.551 73.5 121.551C67.0586 121.551 60.6802 120.282 54.7291 117.817C48.778 115.352 43.3707 111.739 38.816 107.184C34.2612 102.629 30.6481 97.222 28.1831 91.2709C25.7181 85.3198 24.4494 78.9414 24.4494 72.5C24.4494 66.0586 25.7181 59.6802 28.1831 53.7291C30.6481 47.778 34.2612 42.3707 38.816 37.816C43.3707 33.2612 48.778 29.6481 54.7291 27.1831C60.6802 24.7181 67.0586 23.4494 73.5 23.4494L73.5 23.4494Z" stroke="#e4e4f2" stroke-width="4.89873"/>
                                         <path d="M73 24C84.3364 24 95.3221 27.9307 104.085 35.1225C112.848 42.3142 118.847 52.322 121.058 63.4406C123.27 74.5592 121.558 86.1006 116.214 96.0984C110.87 106.096 102.225 113.932 91.7515 118.27C81.278 122.608 69.6243 123.181 58.7761 119.89C47.9278 116.599 38.5562 109.649 32.258 100.223C25.9598 90.7971 23.1248 79.479 24.2359 68.1972C25.3471 56.9153 30.3357 46.3678 38.3518 38.3518" stroke="url(#paint0_linear_622:13617)" stroke-width="10" stroke-linecap="round"/>
@@ -72,25 +71,25 @@ const Perizinan =()=> {
                                         </defs>
                                     </svg>
                                     <div>
-                                        <h5 class="text-xl text-gray-600 text-center">Aktivitas</h5>
-                                        <div class="mt-2 flex justify-center gap-4">
-                                            <h3 class="text-3xl font-bold text-gray-700">{listPond.length}</h3>
-                                            <div class="flex items-end gap-1 text-green-500">
-                                                <svg class="w-3" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <h5 className="text-xl text-gray-600 text-center">Aktivitas</h5>
+                                        <div className="mt-2 flex justify-center gap-4">
+                                            <h3 className="text-3xl font-bold text-gray-700">{listPond.length}</h3>
+                                            <div className="flex items-end gap-1 text-green-500">
+                                                <svg className="w-3" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.00001 0L12 8H-3.05176e-05L6.00001 0Z" fill="currentColor"/>
                                                 </svg>
                                                 <span>2%</span>
                                             </div>
                                         </div>
-                                        <span class="block text-center text-gray-500">Total Pembudidaya</span>
+                                        <span className="block text-center text-gray-500">Total Pembudidaya</span>
                                     </div>
-                                    <table class="w-full text-gray-600">
+                                    <table className="w-full text-gray-600">
                                         <tbody>
                                             <tr>
-                                                <td class="py-2">Data</td>
-                                                <td class="text-gray-500">{listPond.length}</td>
+                                                <td className="py-2">Data</td>
+                                                <td className="text-gray-500">{listPond.length}</td>
                                                 <td>
-                                                    <svg class="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg className="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <rect opacity="0.4" width="17" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="19" width="14" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="35" width="14" height="21" rx="1" fill="#e4e4f2"/>
@@ -106,10 +105,10 @@ const Perizinan =()=> {
                                                 </td>   
                                             </tr>
                                             {/* <tr>
-                                                <td class="py-2">Customize</td>
-                                                <td class="text-gray-500">1200</td>
+                                                <td className="py-2">Customize</td>
+                                                <td className="text-gray-500">1200</td>
                                                 <td>
-                                                    <svg class="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg className="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <rect opacity="0.4" width="17" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="19" width="14" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="35" width="14" height="21" rx="1" fill="#e4e4f2"/>
@@ -125,10 +124,10 @@ const Perizinan =()=> {
                                                 </td>   
                                             </tr> */}
                                             {/* <tr>
-                                                <td class="py-2">Other</td>
-                                                <td class="text-gray-500">12</td>
+                                                <td className="py-2">Other</td>
+                                                <td className="text-gray-500">12</td>
                                                 <td>
-                                                    <svg class="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <svg className="w-16 ml-auto" viewBox="0 0 68 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <rect opacity="0.4" width="17" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="19" width="14" height="21" rx="1" fill="#e4e4f2"/>
                                                         <rect opacity="0.4" x="35" width="14" height="21" rx="1" fill="#e4e4f2"/>
@@ -152,55 +151,71 @@ const Perizinan =()=> {
                     </div>
                     <div className="col-span-2 ">
                         <div className=" rounded-xl  border   ">
-                            <div class="overflow-x-auto">
-                                <div class="bg-gray-100 flex  items-center justify-center bg-gray-100 font-sans overflow-hidden">
-                                    <div class="w-full">
-                                        <div class="bg-white h-full shadow-md rounded">
-                                            <table class=" w-full table-auto">
+                            <div className="overflow-x-auto">
+                                <div className="bg-gray-100 flex  items-center justify-center bg-gray-100 font-sans overflow-hidden">
+                                    <div className="w-full">
+                                        <div className="bg-white h-full shadow-md rounded">
+                                            <table className=" w-full table-auto">
                                                 <thead>
-                                                    <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-                                                        <th class="py-3 px-6 text-left">Nama</th>
+                                                    <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                                        <th className="py-3 px-6 text-left">Nama</th>
                                                         
-                                                        <th class="py-3 px-6 text-left">Alamat</th>
-                                                        <th class="py-3 px-6 text-center">Status</th>
-                                                        <th class="py-3 px-6 text-center">Action</th>
+                                                        <th className="py-3 px-6 text-left">Alamat</th>
+                                                        <th className="py-3 px-6 text-center">Status</th>
+                                                        <th className="py-3 px-6 text-center">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-gray-600 text-sm font-light">
+                                                <tbody className="text-gray-600 text-sm font-light">
                                                         {
-                                                            listPond ? (
-                                                                
-                                                                listPond.map((item, i) => 
-                                                                <tr>
+                                                            listPond ? (                   
+                                                                listPond.map((item, i) =>
 
-                                                                    <td class="py-3 px-6 text-left">
-                                                                        <div class="flex items-center">
-                                                                            <div class="mr-2">
-                                                                                {/* <img class="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
+                                                                <tr>
+                                                                    <td className="py-3 px-6 text-left">
+                                                                        <div className="flex items-center">
+                                                                            <div className="mr-2">
+                                                                                {/* <img className="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
                                                                             </div>
-                                                                            <span class="font-medium">{item ? item.name : 'nama'}</span>
+                                                                            <span className="font-medium">{item ? item.name : 'nama'}</span>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="py-3 px-6 text-left">
-                                                                        <div class="flex items-center">
-                                                                            <div class="mr-2">
-                                                                                {/* <img class="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
+                                                                    <td className="py-3 px-6 text-left">
+                                                                        <div className="flex items-center">
+                                                                            <div className="mr-2">
+                                                                                {/* <img className="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
                                                                             </div>
-                                                                            <span class="font-medium">{item ? item.detailAddress : 'Alamat'}</span>
+                                                                            <span className="font-medium">{item ? item.detailAddress : 'Alamat'}</span>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="py-3 px-6 text-center">
-                    {
-                                                                        item.status === "submission" ? (
-                                                                            <span class="bg-red-200 text-green-600 py-1 px-3 rounded-full text-xs">{item ? item.status :'No status'}</span>
-                                                                        ):(   
-                                                                            <span class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">{item ? item.status :'No status'}</span>
-                                                                        )
-                                                                    }
+                                                                    <td className="py-3 px-6 text-center">
+                                                                        {
+                                                                            // item.filter(i =>{
+                                                                            //      return(
+                                                                            //          i.status === "submission"
+                                                                            //      )
+                                                                            // })
+                                                                            // .map((i, index)=>{
+                                                                            //     return(
+                                                                            //         <div key={index}>
+                                                                            //             <h1>{i.status}</h1>
+                                                                            //         </div>
+                                                                            //     )
+                                                                            // })
+                                                                            // if(item.status.length > 0 && item.status === "reviewed")
+                                                                            item.status === "submission" ? (
+                                                                            // item.status.length && item.status === (i) ? (
+                                                                            //     if(i === "submission"){
+                                                                            //         return
+                                                                            //     }
+                                                                                <span className="bg-red-200 text-green-600 py-1 px-3 rounded-full text-xs">{item ? item.status :'No status'}</span>
+                                                                            ):(   
+                                                                                <span className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">{item ? item.status :'No status'}</span>
+                                                                            )
+                                                                        }
                                                                     </td>
-                                                                    <td class="py-3 px-6 text-center">
-                                                                        <div class="flex item-center justify-center">
-                                                                            {/* <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                                    <td className="py-3 px-6 text-center">
+                                                                        <div className="flex item-center justify-center">
+                                                                            {/* <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -220,12 +235,12 @@ const Perizinan =()=> {
                                                                                     navigate(`detail-izin/${item.id}`)
                                                                                 }
                                                                             }}
-                                                                            class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                                            className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                                                 </svg>
                                                                             </div>
-                                                                            <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                                            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                                 </svg>
@@ -241,21 +256,21 @@ const Perizinan =()=> {
                                                             </div>
                                                         )
                                                         } 
-                                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                                        <td class="py-3 px-6 text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="mr-2">
-                                                                    {/* <img class="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
+                                                    <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                                        <td className="py-3 px-6 text-left">
+                                                            <div className="flex items-center">
+                                                                <div className="mr-2">
+                                                                    {/* <img className="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
                                                                 </div>
-                                                                <span class="font-medium">{listPond ? listPond.name : 'nama'}</span>
+                                                                <span className="font-medium">{listPond ? listPond.name : 'nama'}</span>
                                                             </div>
                                                         </td>
-                                                        <td class="py-3 px-6 text-left">
-                                                            <div class="flex items-center">
-                                                                <div class="mr-2">
-                                                                    {/* <img class="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
+                                                        <td className="py-3 px-6 text-left">
+                                                            <div className="flex items-center">
+                                                                <div className="mr-2">
+                                                                    {/* <img className="w-6 h-6" src="https://img.icons8.com/color/48/000000/javascript.png"/> */}
                                                                 </div>
-                                                                <span class="font-medium">{listPond ? listPond.Alamat : 'nama'}</span>
+                                                                <span className="font-medium">{listPond ? listPond.Alamat : 'nama'}</span>
                                                             </div>
                                                         </td>
                                                         {/* {
@@ -277,18 +292,18 @@ const Perizinan =()=> {
                                                 </tbody>
                                             </table>
                                             <div className=" flex max-w-lg container pt-3 justify-center mx-auto ">
-                                                <div class="flex flex-row mx-auto">
-                                                    <button type="button" class="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
-                                                    <div class="flex flex-row align-middle">
-                                                        <svg class="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <div className="flex flex-row mx-auto">
+                                                    <button type="button" className="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
+                                                    <div className="flex flex-row align-middle">
+                                                        <svg className="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
                                                         </svg>
-                                                        <p class="ml-2">Prev</p>
+                                                        <p className="ml-2">Prev</p>
                                                     </div>
                                                     </button>
-                                                    <button type="button" class="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
-                                                    <div class="flex flex-row align-middle">
-                                                        <span class="mr-2">Next</span>
+                                                    <button type="button" className="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
+                                                    <div className="flex flex-row align-middle">
+                                                        <span className="mr-2">Next</span>
                                                         <svg class="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                                         </svg>

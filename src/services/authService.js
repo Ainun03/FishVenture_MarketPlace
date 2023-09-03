@@ -1,7 +1,8 @@
 
 import axios from 'axios'
 
-const API_URL = 'http://213.190.4.135:8080/'
+// const API_URL = 'http://213.190.4.135:8080/'
+const API_URL = 'https://fishventure.site/'
 
 const register = async (userData) => {
     const response = await axios.post(API_URL + 'register', userData,
@@ -31,7 +32,6 @@ const login = async (userData) => {
   
     // const data = response.data;
     if (response.data.data) {
-      console.log(userData.applicationType)
       localStorage.setItem('user', JSON.stringify(response.data.data))
     }
   

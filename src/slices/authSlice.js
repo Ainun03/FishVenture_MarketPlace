@@ -23,6 +23,8 @@ const initialState = {
     },
     profil: {},
     role: role ? role: "",
+    updateProfil:{},
+    imageUser:{},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -70,7 +72,8 @@ export const loginUser = createAsyncThunk(
     "/profile",
     async (payload, thunkAPI) => {
         
-        const url = `http://213.190.4.135:8080/profile`
+        // const url = `http://213.190.4.135:8080/profile`
+        const url = `https://fishventure.site/profile`
         const { token } = thunkAPI.getState().user.user;
     try {
         const resp = await axios.get(url,
@@ -96,14 +99,55 @@ export const loginUser = createAsyncThunk(
       }
     }
   );
+
+
+export const postImageUser = createAsyncThunk(
+    "/upload-user-photo",
+    async (payload, thunkAPI) => {
+      console.log(payload);
+      const url = `https://fishventure.site/upload-user-photo`
+      // const url = `http://213.190.4.135:8080/upload-user-photo`
+      try {
+        const resp = await axios.post(url,payload,
+          {
+            headers: {     
+              accept: "*/*",
+              "Content-Type": "multipart/form-data",
+            },
+          })
+
+        return resp.data.data;
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString()
+        toast.dismiss();
+        toast.error(message);
+        return thunkAPI.rejectWithValue(message)
+      }
+    }
+  );
 export const updateUser = createAsyncThunk(
     "/update-user",
-    async (user, thunkAPI) => {
-      // const { token } = thunkAPI.getState().user.user.data;
-      console.log(user);
-      // const url = `http://localhost:8080/update-user`
+    async (payload, thunkAPI) => {
+      console.log(payload)
+      // const url = `http://213.190.4.135:8080/update-user`
+      const url = `https://fishventure.site/update-user`
+      const { token } = thunkAPI.getState().user.user;
       try {
-        return await authService.login(user)
+        const resp = await axios.post(url,JSON.stringify(payload),
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+              accept: "*/*",
+              "Content-Type": "multipart/form-data",
+            },
+          })
+
+        return resp.data;
       } catch (error) {
         const message =
           (error.response &&
@@ -143,13 +187,12 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
-        console.log(state.user)
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        state.user = null
+        // state.user = null
       })
 
       .addCase(loginUser.pending, (state) => {
@@ -158,8 +201,14 @@ export const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.isLoading = false
-        state.isSuccess = true
-        state.user = action.payload
+        state.isSuccess = true 
+        
+       
+        state.user = action ? action.payload : {}
+        console.log(state.user)   
+        // state.message = action.payload
+        // console.log(state.message)  
+        
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false
@@ -175,43 +224,46 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.profil = action.payload
-        console.log(state.profil)
       })
       .addCase(getProfileUser.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
       })  
+      .addCase(postImageUser.pending, (state) => {
+        state.isLoading = true
+      })
+
+      .addCase(postImageUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.isLoading = false
+        state.isSuccess = true
+        state.imageUser = action.payload
+        console.log(state.imageUser)
+      })
+      .addCase(postImageUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })  
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true
+      })
+
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.isLoading = false
+        state.isSuccess = true
+        state.updateProfil = action.payload
+        console.log(state.updateProfil)
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload
+      })  
     }
 })
-//   extraReducers: {
-//     // register
-//     [registerUser.pending]: (state, action) => {
-//       state.loading = true;
-//     },
-//     [registerUser.fulfilled]: (state,{ payload }) => {
-//       // state.isAuthenticated = true;
-//       // state.id = action.payload ? action.payload : {};;
-//       // state.register = action.payload ? action.payload : {};
-//       state.isAuthenticated = true;
-//       state.id = payload.id;
-//       state.token = payload.token;
-//       state.name = payload.name;
-//       state.email = payload.email;
-//       state.type = payload.type;
-      
-//       // state.address = payload.address;
-      
-//       state.phoneNumber = payload.phoneNumber;
-//       console.log(state.name);
-//     },
-//     [registerUser.rejected]: (state, action) => {
-//       state.loading = false;
-//       state.error = action.payload.message;
-//     },
-//   },
-// });
-
 export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

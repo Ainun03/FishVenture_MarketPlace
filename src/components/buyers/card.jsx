@@ -4,28 +4,32 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 
 import {BiTime} from 'react-icons/bi'
-
+// slice
+import { sellerDetail} from "../../slices/buyer/buyerSlice";
 
 function Cardbuyer(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const {isAuntheticated} =useSelector(
-        (store) =>store.user
-      )
+        (store) =>store.user)
+
     const item = props.buyer;
     return(
         <Fragment>
             <div className='card inline-block  border-2 hover:origin-top-left bg-[#E8F0F2]   p-2 shadow-main shadow-slate-700 w-64 h-64 cursor-pointer  overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out' 
             // onClick={() => navigate('/product-list-seller')}
             
-            onClick={() => {
-            // Checking product seller with user logged\
-            if ((isAuntheticated !== true)) {
-                navigate(`/product-list-seller/${item.id}`);
-            } else {
-                navigate(`/auth-page/login-Pembeli`);
-            }
+            onClick={() => { 
+                // Checking product seller with user logged\
+                if ((isAuntheticated !== true)) {
+                    dispatch(sellerDetail(item)) 
+                    // dispatch(sellerDetailID(item.id));
+                    // sellerDetailID(item)
+                    navigate(`/product-list-seller/${item.id}`);
+                } else {
+                    navigate(`/auth-page/login-Pembeli`);
+                }
             }}
              >
                 <img className="rounded-md h-[100px] w-full object-cover" src={item ? item.image : 'https://static.vecteezy.com/system/resources/previews/003/475/012/original/confused-man-with-question-mark-concept-flat-illustration-free-vector.jpg'} alt='product' />

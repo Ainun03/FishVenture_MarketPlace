@@ -21,12 +21,12 @@ function FormLogin ({
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user } = useSelector(state => state);
+    const { user } = useSelector((store)=>store.user);
 
     const initialValues = {
         email: "",
         password: "",
-        applicationType: "seller",
+        applicationType: "admin",
     };
 
     const validationSchema = () => {
@@ -52,36 +52,43 @@ function FormLogin ({
             dispatch(loginUser(values))
                 .unwrap()
                 .then(() => {
-                    // toast.dismiss();
-                    // toast.success("Login berhasil!");
-                    // navigate("/home-sel");
-                    // if(user.user.data.applicationType === "buyer" ){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/");
-                    // }else if (user.user.data.applicationType === "seller"){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/home-sel");
-                    // }else if (user.user.data.applicationType === "admin"){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/home-mon");
-                    // }
-                    if (initialValues.applicationType === "buyer"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");                 
-                        navigate("/");
-                    }else if(initialValues.applicationType === "seller"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");
-                        navigate("/home-sel");
-                    }else if(initialValues.applicationType === "admin"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");
-                        navigate("/home-mon");
-                    }
+                    if ( user === null){
+                        toast.dismiss()
+                        toast.error('email atau kata sandi anda tidak valid!', 
+                            {
+                            position: "top-center",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            });
+                            formik.values=""
+                        return 
+                    }  else  return (
+                        toast.dismiss(),
+                        toast.success("Login berhasil!"),
+                        navigate("/home-mon"))
+                        // navigate("/home-sel"))
+
+                         
                 });
+                //     if (initialValues.applicationType === "buyer"){
+                //         toast.dismiss();
+                //         toast.success("Login berhasil!");                 
+                //         navigate("/");
+                //     }else if(initialValues.applicationType === "seller"){
+                //         toast.dismiss();
+                //         toast.success("Login berhasil!");
+                //         navigate("/home-sel");
+                //     }else if(initialValues.applicationType === "admin"){
+                //         toast.dismiss();
+                //         toast.success("Login berhasil!");
+                //         navigate("/home-mon");
+                //     }
+                // });
         },
     });
     return(

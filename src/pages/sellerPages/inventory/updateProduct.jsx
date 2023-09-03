@@ -6,7 +6,6 @@ import Button from "../../../components/sellers/form/Button";
 import { Input, Select, Option } from "@material-tailwind/react";
 
 import moment from "moment"
-import { IoChevronBackCircle } from 'react-icons/io5';
 // route-dom
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { IoClose } from 'react-icons/io5';

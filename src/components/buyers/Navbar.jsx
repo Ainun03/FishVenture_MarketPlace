@@ -80,12 +80,16 @@ export default function NavbarBuyer(){
                         </div>
                         <div className=" flex justify-center mx-auto md:mx-0 items-center">
                             <button onClick={profileMenuClick}
-                            // onClick={() => {  
-                            //   dispatch(logout());
-                            // }}
-                          className='bg-gray-400 text-dark border border-gray-400 py-2 px-2 rounded-3xl hover:bg-primary ease-in-out duration-200'>
-                            
-                            <FaUserAlt />
+                              className='bg-gray-400 text-dark border border-gray-400  rounded-3xl hover:bg-primary ease-in-out duration-200' >       
+                              {
+                                profil.photo ==="" ? 
+                                <div className="py-4 px-4">
+                                    <span ><FaUserAlt /></span>
+                                </div>
+                                 :
+                                <img className="rounded-full h-[40px] w-[40px] object-cover" src={profil.photo} alt="profile" />
+                              }                     
+                                
                             {/* <span className='my-auto mr-2 hover:animate-bounce'> <FiLogIn /> </span> Keluar */}
                           </button>
                         </div>

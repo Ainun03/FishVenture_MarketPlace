@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import AddKolamButton from '../button/AddKolamButton';
 import CardBudidaya from '../card/cardBudidaya';
-// Redux
+
+import { toast } from "react-toastify";
+
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 
-const AllBudidaya = (props) => {
+const AllBudidaya = ({status}) => {
   const { getBudiday } = useSelector(
     (store) => store.seller
   );
@@ -16,7 +18,23 @@ const AllBudidaya = (props) => {
     return (
       <Fragment>
         <div className='w-full  pb-5 px-4  flex justify-end '>
-                <button onClick={() => navigate('/home-sel/inventory/post-budidaya')}
+                <button onClick={() => {
+                  if ((status === "reviewed" || status === "submission"  )) {
+                    return toast.error('Tunggu Hingga Pengajuan Anda Diterima!', {
+                          position: "top-center",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          });  
+                  } else{
+                    return navigate('/home-sel/inventory/post-budidaya')}
+                  }     
+                }
+                
                  className=' p-2 rounded-3xl hover:bg-blue-200 hover:border-blue-300 hover:text-blue-500 border-b-4 bg-primary border-dashed border-blue-600 w-32 '>
                     <span className=''>Tambah </span>
                 </button>

@@ -54,6 +54,7 @@ import Data from './components/monitoring/Data';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify"
 // Testing
 import Flask from './pages/Testing';
 
@@ -61,7 +62,7 @@ import Flask from './pages/Testing';
 function App() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
-  const {isAuntheticated, user} =useSelector(
+  const {isAuntheticated, user, profil} =useSelector(
     (store) =>store.user
   )
   const {isActivate, pond} =useSelector(
@@ -77,8 +78,26 @@ function App() {
     if (pond.status !=="reviewed"){
       return children;
     }
-    else return <Navigate to="/home-sel/list" replace />;
+    else return <Navigate to="/home-sel" replace />;
   }
+  const ContentRouteProtected = ({ children }) => {
+    if (profil.phone !== "" || profil.photo !== "") {
+        return children;
+    } else return (
+      toast.warn(' Lengkapi Profil Anda Terlebih Dahulu!', 
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          }),
+          <Navigate to="/buyer-profil" replace />
+    )
+};
 
   // if (isAuntheticated !== true){
   //     useEffect(()=>{
@@ -86,8 +105,9 @@ function App() {
   //     },[dispatch])
   // }
 
+
   useEffect(() => {
-    if (isAuntheticated !== true){
+    if (!isAuntheticated){
       dispatch(getProfileUser())
     }
   }, [dispatch,isAuntheticated]);
@@ -103,6 +123,7 @@ function App() {
     if (user.applicationType !== "seller"){ 
       return children;
     } else return <Navigate to="/home-sel" replace />
+          
   };
 
   // useEffect(() => {
@@ -159,8 +180,12 @@ function App() {
           <Route path='auth-page/register' element={<FormRegister />} />
         </Route>
         {/* ------- */}
-        <Route path='/flask' element={<Flask />} />
-        <Route path='/product-detail/:id' element={<ProductDetail />} />
+        <Route 
+        path='/product-detail/:id' element={
+          <ContentRouteProtected>
+            <ProductDetail />
+          </ContentRouteProtected>
+        } />
         <Route path='/product-list-seller/:id' element={<ProductSeller />} />
         {/* buyer */}
         <Route path='/checkout' element={<Checkout />} />

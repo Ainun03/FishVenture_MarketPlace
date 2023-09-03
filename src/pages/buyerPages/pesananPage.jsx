@@ -3,13 +3,15 @@ import NavbarBuyer from "../../components/buyers/Navbar";
 
 import Clock from 'react-live-clock';
 import { useTimer,useTime } from 'react-timer-hook';
-import Berlangsung from "../../components/buyers/pesanan/berlangsung";
 import Footer from "../../components/buyers/Footer";
 
 import { useLocation,Outlet } from "react-router";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { MdRowing } from "react-icons/md";
 
 function MyTimer ({expiryTimestamp})  {
+
     const {
         seconds,
         minutes,
@@ -42,7 +44,8 @@ function MyTimer ({expiryTimestamp})  {
 
 const PesananPage = ({ expiryTimestamp }) =>{
     const location = useLocation();
-    console.log(location);
+
+    const {getOrder}=useSelector((store)=>store.buyer)
     
     const time = new Date();
     time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
@@ -51,9 +54,9 @@ const PesananPage = ({ expiryTimestamp }) =>{
             <div className="relative">
                 <NavbarBuyer/>
                 <div className="bg-gray-200">
+                    
                     <div className="flex-col ">
                         <div className=" flex flex-row gap-4 bg-white  px-2 w-full py-1 r">
-                    
                             <div className=" border-b-2 cursor-pointer hover:border-primary hover:text-primary flex justify-center w-full ">
                                 <Link to="/pesanan">
                                     <div className={"  "+
@@ -81,6 +84,7 @@ const PesananPage = ({ expiryTimestamp }) =>{
                             
                         </div>
                     </div>
+
                     <div 
                         data-aos="fade-left"
                         data-aos-durations="1000"
@@ -91,7 +95,9 @@ const PesananPage = ({ expiryTimestamp }) =>{
                     </div>
                         {/* <MyTimer /> */}
                 </div>
+                <div className="bottom-0 fixed left-0 right-0">
                     <Footer/>
+                </div>
             </div>
 
         </Fragment>

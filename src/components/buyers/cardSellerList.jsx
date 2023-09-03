@@ -5,11 +5,15 @@ import { useSelector,useDispatch } from 'react-redux';
 
 import {BiTime} from 'react-icons/bi'
 import moment from "moment"
+// slice
+import { productDetailID } from "../../slices/buyer/buyerSlice";
 
 function CardSellerList(props){
     const navigate = useNavigate();
-    const item = props.buyer;
+    const dispatch =useDispatch()
 
+    const item = props.buyer;
+    // const addproductDetail = (id)=> dispatch(productDetailID(id))
     var startPanen = moment.tz(item.dateOfSeed, "Asia/Jakarta");
     var endPanen = moment.tz(item.estPanenDate,"Asia/Jakarta");
 
@@ -26,6 +30,7 @@ function CardSellerList(props){
             onClick={() => {
                 // Checking product seller with user logged\
                 if ((isAuntheticated !== true)) {
+                    dispatch(productDetailID(item)) 
                     navigate(`/product-detail/${item.id}`);
                 } else {
                     navigate(`/auth-page/login-Pembeli`);

@@ -57,10 +57,8 @@ function FormRegister () {
         onSubmit: (values) => { 
             toast.loading("Signing up . . .",{
                 position: "top-center",
-				autoClose: 10000,
+				autoClose: 3000,
             });
-            console.log(values)
-
             dispatch(registerUser(values))
                 .unwrap()
                 .then(() => {

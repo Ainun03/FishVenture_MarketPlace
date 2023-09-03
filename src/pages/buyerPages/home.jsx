@@ -14,7 +14,6 @@ import { FiSearch } from "react-icons/fi";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 const CenteredCarousel = () => {
     const params = {
       className: "center",
@@ -77,15 +76,14 @@ function HomePage() {
     (store) => store.buyer
   );
   const dispatch = useDispatch();
-
-
+  
   useEffect(() => {
     if (isAuntheticated !== true){
       dispatch(listPondBuyer())
     }
   }, [dispatch,isAuntheticated]);
 
-  
+  // const sellerDetail = (id)=> dispatch(sellerDetailID(id))
 
   //  else return <Navigate to="/" replace />
 
@@ -135,8 +133,10 @@ function HomePage() {
                         >
                           {/* <div className="grid grid-cols-1 xs-grid-cols-2 px-3 lg:grid-cols-3 md:grid-cols-2 gap-2"> */}
                           <div className=" flex flex-nowrap gap-4">
-                              {pondBuyer.length > 0 && pondBuyer.map(item => 
-                                <Cardbuyer key={item.id} buyer={item} />
+                              {pondBuyer.length > 0 && pondBuyer.map((item,index)=> 
+                                <div className="">
+                                  <Cardbuyer key={index} buyer={item}  />
+                                </div>
                               )}
                           </div>
                                       

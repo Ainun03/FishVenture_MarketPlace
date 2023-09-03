@@ -1,4 +1,4 @@
-import React,{ Fragment,useEffect }from "react";
+import React,{ Fragment,useEffect ,useState}from "react";
 
 // pages
 import NavbarSel from "../../components/sellers/NavbarSel";
@@ -22,6 +22,15 @@ function HomeSel (){
     const {isAuntheticated, user} =useSelector(
         (store) =>store.user
       )
+    
+    //   const [items, setItems] = useState([]);
+
+    //   useEffect(() => {
+    //     const items = JSON.parse(localStorage.getItem('items'));
+    //     if (items) {
+    //      setItems(items);
+    //     }
+    //   }, []);;
 
     useEffect(() => {
         if (isAuntheticated !== true){
@@ -59,11 +68,11 @@ function HomeSel (){
                 return children
             }
         }
-
     }
+    
+    // useEffect=()=>{
 
-    
-    
+    // }
     return(
         <Fragment>
             <div className=" h-full font-serif"> 
@@ -75,18 +84,56 @@ function HomeSel (){
                         {/* <NavbarBuyer/> */}
                         <NavbarSel/>
                         <div className="">
-                            {        
-                                check.status === "reviewed" ? (
-                                    <div className="bg-yellow-500 flex justify-center w-full p-3 rounded-b-2xl ">
-                                        <h3 className="font-medium capitalize text-white py-2 px-2  ">
-                                            Tunggu hingga pengajuan anda di setujui
+                            {/* {
+                                check.map((item,index) => {
+                                    if (item.status === "reviewed"){
+
+                                    return<div >
+                                                <div className="bg-green-500 flex justify-center w-full p-3 rounded-b-2xl ">
+                                                    <h3 className="font-medium capitalize text-white py-2 px-2  ">
+                                                        Pengajuan Anda Telah disetujui
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                    }else if ( item.status !== "actived"){
+                                    return<div className="bg-red-500 flex justify-center hover:bg-red-300 hover:text-gray-600 hover:text-base cursor-pointer w-full p-3 rounded-b-2xl ">
+                                        <h3 className="font-medium text-white py-2 px-2  ">
+                                            Aktivasi <span className="font-bold text-xl text-green-400"></span> Terlebih Dahulu
                                         </h3>
                                     </div>
-                                ) : (
+                                    }
+                                })
+                            } */}
+                            {        
+                               check.status === "actived" ? (
+                                        <div className="bg-green-500 flex justify-center w-full p-3 rounded-b-2xl ">
+                                            <h3 className="font-medium capitalize text-white py-2 px-2  ">
+                                                SELAMATT !!!! Pengajuan Anda Telah disetujui, mulai Berbudidaya
+                                            </h3>
+                                        </div>
+                                ) :check.status === "submission"?  (
+                                        <div className="bg-red-500 flex justify-center hover:bg-red-300 hover:text-gray-600 hover:text-base cursor-pointer w-full p-3 rounded-b-2xl ">
+                                            <h3 className="font-medium text-white py-2 px-2  ">
+                                                Proses Pengajuan Telah Berhasil, Silahkan Tunggu Hingga 2 hari Kedepan
+                                            </h3>
+                                        </div>
+                                ):check.status === "reviewed"?(
+                                    <div className="bg-yellow-500 flex justify-center w-full p-3 rounded-b-2xl ">
+                                        <h3 className="font-medium capitalize text-white py-2 px-2  ">
+                                        Saat ini, formulir pengajuan sedang dalam proses peninjauan.
+                                        </h3>
+                                    </div>
+                                ):check.status === "disabled"?(                                 
+                                        <div className="bg-gray-700 flex justify-center w-full p-3 rounded-b-2xl ">
+                                            <h3 className="font-medium capitalize text-white py-2 px-2  ">
+                                                Maaf, formulir pengajuan Anda ditolak 
+                                            </h3>
+                                        </div>
+                                ):(
                                     <Link to="/home-sel/laporan/post-budidaya">
                                         <div className="bg-red-500 flex justify-center hover:bg-red-300 hover:text-gray-600 hover:text-base cursor-pointer w-full p-3 rounded-b-2xl ">
                                             <h3 className="font-medium text-white py-2 px-2  ">
-                                                Aktivasi <span className="font-bold text-xl text-green-400"></span> Terlebih Dahulu
+                                            Silakan isi formulir pengajuan terlebih dahulu agar akun dapat digunakan.
                                             </h3>
                                         </div>
                                     </Link>

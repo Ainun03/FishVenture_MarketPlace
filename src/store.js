@@ -7,18 +7,38 @@ import countrySlice from "./slices/listAddressSlice";
 import buyerSlice from "./slices/buyer/buyerSlice";
 import kolamSlice  from "./slices/seller/poolSlice";
 
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+
+const persistConfigAdmin = {
+    key: 'admin',
+    storage
+  }; 
+const persistConfigBuyer = {
+    key: 'buyer',
+    storage
+  }; 
+
+const persistedBuyer=persistReducer(persistConfigBuyer,buyerSlice)
+const persistedAdmin=persistReducer(persistConfigBuyer,adminSlice)
+
+const reducer={
+// persist ====
+    admin:persistedAdmin,
+    buyer:persistedBuyer,
+// reducer ====
+    user: authSlice,
+    seller:sellerSlice,
+    listAddress:countrySlice,
+    pool:kolamSlice
+}
+
 export const store = configureStore({
-    reducer: {
-        user: authSlice,
-        seller:sellerSlice,
-        admin:adminSlice,
-        listAddress:countrySlice,
-        buyer:buyerSlice,
-        pool:kolamSlice
-        
-    },
+    reducer:reducer,
+    devTools: true,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
         }),
 });
+export const persistor = persistStore(store);

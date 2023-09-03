@@ -6,6 +6,7 @@ const initialState = {
     listPond: [],
     updatePondStatus: {},
     mySoldProducts: [],
+    pengajuanDetail:{},
     isLoadingPond: false,
 };
 
@@ -14,7 +15,8 @@ export const getListPond = createAsyncThunk(
     "/list-pond",
     async (paylod,thunkAPI) => {
         // const { id, accessToken } = thunkAPI.getState().user;
-        let url=`http://213.190.4.135:8080/list-pond`
+        let url=`https://fishventure.site/list-pond`
+        // let url=`http://213.190.4.135:8080/list-pond`
         // let url = `${process.env.REACT_APP_BASE_URL}/api/v1/products/show/${id}`;
 
         try {
@@ -88,7 +90,19 @@ export const updatePond = createAsyncThunk(
   const adminSlice = createSlice({
     name: "admin",
     initialState,
-    reducers: {},
+    reducers: {
+      logoutBuyer: (state) => {
+        localStorage.removeItem("admin");
+        state.listPond= {}
+        state.pengajuanDetail= {}
+    },
+      pengajuanDetailID:(state,action)=>{
+        state.pengajuanDetail=action.payload
+        // state.productDetail = state.cart.filter(val=>val.id !== action.payload.id)
+        console.log(state.pengajuanDetail)
+        localStorage.setItem('productDetail',JSON.stringify(state.pengajuanDetail))
+      },
+    },
     extraReducers: {
         [getListPond.pending]: (state) => {
             state.isLoadingPond = true;
@@ -116,5 +130,7 @@ export const updatePond = createAsyncThunk(
         },
     },
 });
+
+export const {pengajuanDetailID} = adminSlice.actions;
 
 export default adminSlice.reducer;

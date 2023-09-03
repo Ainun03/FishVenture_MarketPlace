@@ -330,6 +330,7 @@ export const sellerSlice = createSlice({
   name: "seller",
   initialState,
   reducers: {
+
     logoutSeller: (state) => {
         localStorage.removeItem("seller");
         state.isActivate = false;
@@ -419,12 +420,12 @@ export const sellerSlice = createSlice({
       .addCase(getBudidaya.fulfilled, (state, action) => {
         // state.isAuthenticated = true;
         state.isActivate=true
-        state.getBudiday = action.payload
+        state.getBudiday = action.payload ? action.payload : {};
       })
       .addCase(getBudidaya.rejected, (state, action) => {
         // state.isLoading = false
         state.isError = true
-        state.message = action.payload ? action.payload : {};
+        state.message = action.payload
       }) 
       .addCase(getJenisIkan.pending, (state) => {
         state.isLoading = true

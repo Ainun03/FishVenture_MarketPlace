@@ -10,35 +10,39 @@ import NavbarBuyer from "../../../components/buyers/Navbar";
 import CardSellerList from "../../../components/buyers/cardSellerList";
 // redux
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getListBudidayaBuyer } from "../../../slices/buyer/buyerSlice";
+import { getListBudidayaBuyer} from "../../../slices/buyer/buyerSlice";
+import { listPondBuyer,sellerPond } from "../../../slices/buyer/buyerSlice";
 
-function ProductSeller(props){
+function ProductSeller(items){
     const navigate = useNavigate()
     const dispatch=useDispatch()
     const { id } = useParams();
-    
-    const { pondBuyer,getBudidayaBuyer } = useSelector(
+
+    const { pondBuyer,getBudidayaBuyer,sellerDetailID } = useSelector(
         (store) => store.buyer
     );
-    // const { buyer } = useSelector(state => state);
-
+    const {isAuntheticated} =useSelector(
+        (store) =>store.user
+      )
     
-    // let item =pondBuyer;
-
-    // if (!pond) {  
-    //     pond = regions[0];
-    // } else {
-    //     // check if the user's city is registered on the dataset
-    //     pond = regions.find((region) =>
-    //         region.kota.find((city) => city === tempRegion.city)
-    //     );
-    // }
-    const item=pondBuyer.find((i) => i.id === id)
- 
+    // const item=sellerDetailID
+    // const item=pondBuyer
     useEffect(() => {
-        dispatch(getListBudidayaBuyer({id:item.id}));
-     },[dispatch]);
+        if (isAuntheticated !== true){
+          dispatch(listPondBuyer())
+        }
+      }, [dispatch,isAuntheticated]);
+      console.log(getBudidayaBuyer)
 
+    useEffect(() => {
+        dispatch(getListBudidayaBuyer({id:id}));
+     },[dispatch,id]);
+
+    // useEffect(() => {
+    //     dispatch(sellerPond({id:id}));
+    //  },[dispatch,id]);
+
+    // const item=pondBuyer.find((i) => i.id === id)
 
     return(
         <Fragment>
@@ -54,51 +58,55 @@ function ProductSeller(props){
                         data-aos="fade-right"
                         data-aos-durations="1000"
                         data-aos-delay="500">
-                            <img className="rounded-2xl h-[400px] shadow-md w-screen  object-cover" src={item ? item.image :  'https://static.vecteezy.com/system/resources/previews/003/475/012/original/confused-man-with-question-mark-concept-flat-illustration-free-vector.jpg'} alt="pond"/>
+                            {/* {sellerDetailID.map((item)=>{ */}
+                                <img className="rounded-2xl h-[400px] shadow-md w-screen  object-cover" src={sellerDetailID ? sellerDetailID.image :  'https://static.vecteezy.com/system/resources/previews/003/475/012/original/confused-man-with-question-mark-concept-flat-illustration-free-vector.jpg'} alt="pond"/>
+                            {/* })} */}
                         </div>
                         {/* End Carousel */}
                         <div className='-mt-14 md:flex  md:flex-col md:items-center md:justify-center md:mt-0 md:static relative container mx-auto max-w-sm md:max-w-none md:mx-0' 
                         data-aos="fade-left"
                         data-aos-durations="1000"
                         data-aos-delay="500">
-                            <div className='rounded-xl w-full mb-6 shadow-main shadow-slate-700 shadow-md bg-white'>
-                                <div className='shadow-main h-46  rounded-2xl p-4'>
-                                    <div className="flex justify-between">    
-                                        <div className=" flex items-center justify-center">
-                                            <strong className='font-semibold uppercase text-2xl'>{item ? item.name : "Anonymous"}</strong>
-                                        </div>
-                                        <div>
-                                            <img className='w-10 h-10 rounded-md' src="/assets/images/nyet.jpg" alt='profile' />
-                                        </div>
-                                    </div>
-                                    <div className='info-profile pt-2'>
-                                        {/* <strong className='text-sm font-medium'>{productData ? (productData.users.username).charAt(0).toUpperCase() + (productData.users.username).slice(1).toLowerCase() : 'Anonymous'}</strong> */}
-                                        <div className="flex pt-2">
-                                            <div>
-                                                <Link to={item ? item.url : "www.google.com"} target="_blank">
-                                                    <BiMap size={20} className="text-secondary"/>
-                                                </Link>
-                                            </div>
-                                            {/* <div className="">
-                                            </div> */}
-                                            <div className="">
-                                                <p className='text-xs ml-2 capitalize text-neutralGray'><span>{item ? item.detailAddress : "detailAlamat"}</span> <span>{item ? item.district.name : "kecamatan"} </span><span>{item ? item.city.name : "Kota"}</span> <span>{item ? item.province.name : "Provinsi"} </span><span>{item ? item.country.name : "Negara"}</span> 12730</p>
-                                            </div>
-                                        </div>
-                                        <div className="flex pt-2">
-                                            <div>
-                                        
-                                                <BsTelephone size={15} className="text-secondary"/>
-                                                
+                              {/* { sellerDetailID.length > 0 && sellerDetailID.map((item)=> */}
+                                <div className='rounded-xl w-full mb-6 shadow-main shadow-slate-700 shadow-md bg-white'>
+                                    <div className='shadow-main h-46  rounded-2xl p-4'>
+                                        <div className="flex justify-between">    
+                                            <div className=" flex items-center justify-center">
+                                                <strong className='font-semibold uppercase text-2xl'>{sellerDetailID ? sellerDetailID.name : "Anonymous"}</strong>
                                             </div>
                                             <div>
-                                                <p className='text-xs ml-3 text-neutralGray'>(021) 71790991</p>
+                                                <img className='w-10 h-10 rounded-md' src="/assets/images/nyet.jpg" alt='profile' />
                                             </div>
                                         </div>
-                                        {/* <p className='text-xs text-neutralGray'>{productData ? (productData.users.city).charAt(0).toUpperCase() + (productData.users.city).slice(1).toLowerCase() : 'Anonymous'}</p> */}
+                                        <div className='info-profile pt-2'>
+                                            {/* <strong className='text-sm font-medium'>{productData ? (productData.users.username).charAt(0).toUpperCase() + (productData.users.username).slice(1).toLowerCase() : 'Anonymous'}</strong> */}
+                                            <div className="flex pt-2">
+                                                <div>
+                                                    <Link to={sellerDetailID ? sellerDetailID.url : "www.google.com"} target="_blank">
+                                                        <BiMap size={20} className="text-secondary"/>
+                                                    </Link>
+                                                </div>
+                                                {/* <div className="">
+                                                </div> */}
+                                                <div className="">
+                                                    <p className='text-xs ml-2 capitalize text-neutralGray'><span>{sellerDetailID ? sellerDetailID.detailAddress : "detailAlamat"}</span> <span>{sellerDetailID ? sellerDetailID.district.name : "kecamatan"} </span><span>{sellerDetailID ? sellerDetailID.city.name : "Kota"}</span> <span>{sellerDetailID ? sellerDetailID.province.name : "Provinsi"} </span><span>{sellerDetailID ? sellerDetailID.country.name : "Negara"}</span> 12730</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex pt-2">
+                                                <div>
+                                            
+                                                    <BsTelephone size={15} className="text-secondary"/>
+                                                    
+                                                </div>
+                                                <div>
+                                                    <p className='text-xs ml-3 text-neutralGray'>(021) 71790991</p>
+                                                </div>
+                                            </div>
+                                            {/* <p className='text-xs text-neutralGray'>{productData ? (productData.users.city).charAt(0).toUpperCase() + (productData.users.city).slice(1).toLowerCase() : 'Anonymous'}</p> */}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                              {/* )} */}
                             <div className='btn pt-4 w-full hidden md:block'>
                                 <div className=' flex gap-3'>
                                     <div className=" rounded-xl text-white bg-[#39A2DB] hover:bg-[#A2DBFA] p-1 "> 
@@ -114,18 +122,6 @@ function ProductSeller(props){
                             
                             
                         </div>
-                        {/* <div className='col-span-2 rounded-xl bg-gray-300 container mx-auto max-w-sm md:max-w-none md:mx-0 mt-6 md:mt-0'
-                        data-aos="fade-right"
-                        data-aos-durations="1000"
-                        data-aos-delay="500">
-                            <div className=' shadow-main rounded-2xl p-4'>
-                                <h1 className='font-medium text-sm mb-3'>Deskripsi</h1>
-                                <p className='text-neutralGray text-sm mb-4'>
-                                    
-                                    {'No Description'}
-                                </p>
-                            </div>
-                        </div> */}
                             <div className='col-span-2 md:col-span-4 container mx-auto max-w-sm md:max-w-none md:mx-0 md:mt-0'
                             >
                                 <h1 className="font-bold text-lg text-gray-700">Jenis Ikan</h1>

@@ -21,8 +21,7 @@ function FormLoginPembeli ({
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user } = useSelector(state => state);
-
+    const { user } = useSelector((store)=>store.user);
     const initialValues = {
         email: "",
         password: "",
@@ -51,38 +50,28 @@ function FormLoginPembeli ({
             });
             dispatch(loginUser(values))
                 .unwrap()
-                .then(() => {
-                    // toast.dismiss();
-                    // toast.success("Login berhasil!");
-                    // navigate("/home-sel");
-                    // if(user.user.data.applicationType === "buyer" ){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/");
-                    // }else if (user.user.data.applicationType === "seller"){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/home-sel");
-                    // }else if (user.user.data.applicationType === "admin"){
-                    //     toast.dismiss();
-                    //     toast.success("Login berhasil!");
-                    //     navigate("/home-mon");
-                    // }
-                    if (initialValues.applicationType === "buyer"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");     
-                        dispatch(getProfileUser())            
-                        navigate("/");
-                    }else if(initialValues.applicationType === "seller"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");
-                        dispatch(getProfileUser())   
-                        navigate("/home-sel");
-                    }else if(initialValues.applicationType === "admin"){
-                        toast.dismiss();
-                        toast.success("Login berhasil!");
-                        navigate("/home-mon");
-                    }
+                .then((response) => {
+                    if ( user === null){
+                        toast.dismiss()
+                        toast.error('email atau kata sandi anda tidak valid!', 
+                            {
+                            position: "top-center",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            });
+                            formik.values=""
+                        return 
+                    }  else  return (
+                        toast.dismiss(),
+                        toast.success("Login berhasil!"),
+                        navigate("/"))
+
+                         
                 });
         },
     });
