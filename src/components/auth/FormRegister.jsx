@@ -25,6 +25,7 @@ function FormRegister () {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useSelector((store)=>store.user);
 
     const initialValues = {
         name: "",
@@ -62,10 +63,29 @@ function FormRegister () {
             dispatch(registerUser(values))
                 .unwrap()
                 .then(() => {
-                    toast.dismiss();
-                    toast.success("Register berhasil!");
-                    navigate("/auth-page/login-penjual");
+                    if ( user !== null){
+                        toast.dismiss()
+                        toast.success("Login berhasil!")
+                        navigate("/auth-page/login-penjual");
+                        
+                        return 
+                    }  else  return (
+                        toast.dismiss(),
+                        toast.error('email telah terdaftar!', 
+                            {
+                            position: "top-center",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                            }),
+                            formik.values=""
+                            )
                 });
+                
         },
     });
 

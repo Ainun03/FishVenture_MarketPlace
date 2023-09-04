@@ -2,14 +2,11 @@ import React, { Fragment } from "react";
 
 // icons
 import {BsNewspaper} from 'react-icons/bs'
-import {FaStethoscope} from 'react-icons/fa'
 import {GiMoneyStack} from 'react-icons/gi'
 import {MdOutlineInventory} from 'react-icons/md'
 import {AiOutlineHome} from 'react-icons/ai'
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-
-
 
 const Sidebar = () => {
     const location = useLocation();

@@ -51,8 +51,15 @@ function FormLoginPembeli ({
             dispatch(loginUser(values))
                 .unwrap()
                 .then((response) => {
-                    if ( user === null){
+                    if ( user !== null || user.applicationType !== ""){
                         toast.dismiss()
+                        toast.success("Login berhasil!")
+                        dispatch(getProfileUser())
+                        navigate("/")
+                        
+                        return 
+                    }  else  return (
+                        toast.dismiss(),
                         toast.error('email atau kata sandi anda tidak valid!', 
                             {
                             position: "top-center",
@@ -63,13 +70,9 @@ function FormLoginPembeli ({
                             draggable: true,
                             progress: undefined,
                             theme: "light",
-                            });
+                            }),
                             formik.values=""
-                        return 
-                    }  else  return (
-                        toast.dismiss(),
-                        toast.success("Login berhasil!"),
-                        navigate("/"))
+                            )
 
                          
                 });

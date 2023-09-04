@@ -12,7 +12,7 @@ function CardKolam(props){
 
     return(
         <Fragment>
-            <div className='card border-black border-2 hover:origin-top-left rounded-md p-2 bg-[#E8F0F2] shadow-main shadow-slate-700 h-56 '>
+            <div className='card inline-block  border-2 hover:origin-top-left bg-[#E8F0F2]   p-2 shadow-main shadow-slate-700 w-full h-64 cursor-pointer  overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out'>
                 <img className="rounded-md h-[100px] w-screen object-cover" src={item ? item.image : 'https://static.vecteezy.com/system/resources/previews/003/475/012/original/confused-man-with-question-mark-concept-flat-illustration-free-vector.jpg'} alt='pool' />
                 <div className="card-body px-1 h-28 flex flex-col justify-center">
                     <h3 className='font-semibold text-xl '>{item.name ? item.name : "kosong"}</h3> 

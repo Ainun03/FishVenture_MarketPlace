@@ -18,8 +18,8 @@ const initialState = {
     "/list-country",
     async (paylod,thunkAPI) => {
         // const { id, accessToken } = thunkAPI.getState().user;
-        // let url=`http://213.190.4.135:8080/list-country`
-        let url=`https://fishventure.site/list-country`
+        let url=`http://213.190.4.135:8080/list-country`
+        // let url=`https://fishventure.site/list-country`
         // let url = `${process.env.REACT_APP_BASE_URL}/api/v1/products/show/${id}`;
   
         try {

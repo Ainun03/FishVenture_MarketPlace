@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {loginUser} from "../../slices/authSlice"
+import {loginUser,getProfileUser} from "../../slices/authSlice"
 
 function FormLogin ({
     children,
@@ -26,7 +26,7 @@ function FormLogin ({
     const initialValues = {
         email: "",
         password: "",
-        applicationType: "admin",
+        applicationType: "seller",
     };
 
     const validationSchema = () => {
@@ -52,8 +52,15 @@ function FormLogin ({
             dispatch(loginUser(values))
                 .unwrap()
                 .then(() => {
-                    if ( user === null){
+                    if ( user !== null){
                         toast.dismiss()
+                        toast.success("Login berhasil!")
+                        dispatch(getProfileUser())
+                        navigate("/home-sel")
+                        
+                        return 
+                    }  else  return (
+                        toast.dismiss(),
                         toast.error('email atau kata sandi anda tidak valid!', 
                             {
                             position: "top-center",
@@ -64,14 +71,9 @@ function FormLogin ({
                             draggable: true,
                             progress: undefined,
                             theme: "light",
-                            });
+                            }),
                             formik.values=""
-                        return 
-                    }  else  return (
-                        toast.dismiss(),
-                        toast.success("Login berhasil!"),
-                        navigate("/home-mon"))
-                        // navigate("/home-sel"))
+                            )
 
                          
                 });

@@ -17,8 +17,6 @@ import { postImageUser,updateUser } from "../../../slices/authSlice";
 import { useLocation } from "react-router";
 import NavbarBuyer from "../../../components/buyers/Navbar";
 import Footer from "../../../components/buyers/Footer";
-import SideProfil from "./ProfilSide";
-
 import {FaUserAlt} from 'react-icons/fa'
 
 

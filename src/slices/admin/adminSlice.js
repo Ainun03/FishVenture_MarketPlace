@@ -15,8 +15,8 @@ export const getListPond = createAsyncThunk(
     "/list-pond",
     async (paylod,thunkAPI) => {
         // const { id, accessToken } = thunkAPI.getState().user;
-        let url=`https://fishventure.site/list-pond`
-        // let url=`http://213.190.4.135:8080/list-pond`
+        // let url=`https://fishventure.site/list-pond`
+        let url=`http://213.190.4.135:8080/list-pond`
         // let url = `${process.env.REACT_APP_BASE_URL}/api/v1/products/show/${id}`;
 
         try {
@@ -55,8 +55,8 @@ export const updatePond = createAsyncThunk(
     async (payload,thunkAPI) => {
         console.log(payload)
         const { token } = thunkAPI.getState().user.user;
-        let url=`https://fishventure.site/update-pond-status`
-        // let url=`http://213.190.4.135:8080/update-pond-status`
+        // let url=`https://fishventure.site/update-pond-status`
+        let url=`http://213.190.4.135:8080/update-pond-status`
         // let url = `${process.env.REACT_APP_BASE_URL}/api/v1/products/show/${id}`;
 
         try {

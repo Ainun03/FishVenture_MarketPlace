@@ -98,19 +98,11 @@ function App() {
           <Navigate to="/buyer-profil" replace />
     )
 };
-
-  // if (isAuntheticated !== true){
-  //     useEffect(()=>{
-  //       dispatch(getProfileUser())
-  //     },[dispatch])
-  // }
-
-
-  useEffect(() => {
-    if (!isAuntheticated){
-      dispatch(getProfileUser())
-    }
-  }, [dispatch,isAuntheticated]);
+  // useEffect(() => {
+  //   if (!isAuntheticated){
+  //     dispatch(getProfileUser())
+  //   }
+  // }, [dispatch,isAuntheticated]);
   
   useEffect(() =>{
     if (isAuntheticated !== true){
@@ -119,35 +111,25 @@ function App() {
     },[dispatch,isAuntheticated])
 
 
+
+  const AuthRoute = ({ children }) => {
+    if (!isAuntheticated ){ 
+      return children;
+    } else return <Navigate to="/auth-page/login-penjual" replace />
+          
+  };
   const RoleRouteSeller = ({ children }) => {
-    if (user.applicationType !== "seller"){ 
+    if (user.applicationType !== "seller" ){ 
       return children;
     } else return <Navigate to="/home-sel" replace />
           
   };
-
-  // useEffect(() => {
-  //   // if (isAuntheticated) {
-  //   //   <Navigate  to="/" replace/>
-  //   // }
-  //   if (user && user.data.applicationType !== "seller") {
-  //     <Navigate  to="/home-sel" replace/>
-  //     // navigate('/home-sel')
-  //     return 
-  //   }
-  // }, [ user, Navigate]);
-
-  // const AuthRoute = ({ children }) => {
-  //   if (!isAuntheticated) {
-  //       return children;
-  //   } else return <Navigate to="/profile" replace />;
-  // };
-  // const ContentRoute = ({ children }) => {
-  //   if (isAuntheticated) {
-  //       return children;
-  //   } else return <Navigate to="/login" replace />;
-  // };
-
+  const RoleRouteBuyer = ({ children }) => {
+    if (user.applicationType !== "buyer"){ 
+      return children;
+    } else return <Navigate to="/" replace />
+          
+  };
   return (
     <BrowserRouter>
       <ToastContainer
@@ -173,27 +155,99 @@ function App() {
             </RoleRouteSeller>
           } 
         />
-        <Route element={<AuthPage />}>
-          <Route path='auth-page' element={<AuthDashboard />} />
-          <Route path='auth-page/login-penjual' element={<FormLogin />} />
-          <Route path='auth-page/login-Pembeli' element={<FormLoginPembeli />} />
-          <Route path='auth-page/register' element={<FormRegister />} />
+        <Route element={
+          <AuthRoute>
+            <RoleRouteSeller>
+              {/* <RoleRouteBuyer> */}
+              <AuthPage/>
+              {/* </RoleRouteBuyer> */}
+            </RoleRouteSeller>
+          </AuthRoute>
+        }>
+          <Route path='auth-page' element={
+            <AuthRoute>
+              <RoleRouteSeller>
+                {/* <RoleRouteBuyer> */}
+                  <AuthDashboard />
+                {/* </RoleRouteBuyer> */}
+              </RoleRouteSeller>
+            </AuthRoute>
+          } />
+          <Route path='auth-page/login-penjual' element={
+            <AuthRoute>
+              <RoleRouteSeller>
+                <RoleRouteBuyer>
+                  <FormLogin />
+                </RoleRouteBuyer>
+              </RoleRouteSeller>
+            </AuthRoute>
+          } />
+          <Route path='auth-page/login-Pembeli' element={
+            <AuthRoute>
+              <RoleRouteSeller>
+                {/* <RoleRouteBuyer> */}
+                  <FormLoginPembeli />
+                {/* </RoleRouteBuyer> */}
+              </RoleRouteSeller>
+            </AuthRoute>
+          } />
+          <Route path='auth-page/register' element={
+            <RoleRouteSeller>
+              <RoleRouteBuyer>
+                <FormRegister />
+              </RoleRouteBuyer>
+            </RoleRouteSeller>
+          } />
         </Route>
         {/* ------- */}
         <Route 
         path='/product-detail/:id' element={
-          <ContentRouteProtected>
-            <ProductDetail />
-          </ContentRouteProtected>
+          <RoleRouteSeller>
+            <ContentRouteProtected>
+              <ProductDetail />
+            </ContentRouteProtected>
+          </RoleRouteSeller>
         } />
-        <Route path='/product-list-seller/:id' element={<ProductSeller />} />
+        <Route path='/product-list-seller/:id' 
+        element={
+          <RoleRouteSeller>
+            <ContentRouteProtected>
+              <ProductSeller/>
+            </ContentRouteProtected>
+          </RoleRouteSeller>
+        } />
         {/* buyer */}
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/buyer-profil' element={<ProfilBuyer />} />
-        <Route path='/jadwal-panen' element={<JadwalPage />} />
-        <Route element={<PesananPage />} >
-          <Route path='pesanan' element={<Berlangsung/>}/>
-          <Route path='pesanan/pesanan-selesai' element={<Selesai/>}/>
+        <Route path='/checkout' element={
+          <RoleRouteSeller>
+            <Checkout />
+          </RoleRouteSeller>
+        } />
+        <Route path='/buyer-profil' element={
+          <RoleRouteSeller>
+            <ProfilBuyer />
+          </RoleRouteSeller>
+        } />
+        <Route path='/jadwal-panen' element={
+          <RoleRouteSeller>
+            <JadwalPage />
+          </RoleRouteSeller>
+      } />
+        <Route element={
+          <RoleRouteSeller>
+            <PesananPage />
+          </RoleRouteSeller>
+        } >
+          <Route path='pesanan' element={
+            <RoleRouteSeller>
+              <Berlangsung/>
+            </RoleRouteSeller>
+
+          }/>
+          <Route path='pesanan/pesanan-selesai' element={
+            <RoleRouteSeller>
+              <Selesai/>
+            </RoleRouteSeller>
+          }/>
         </Route>
         {/* ----- */}
         {/* Seller */}
@@ -254,13 +308,31 @@ function App() {
               <HomeMon/>   
             </RoleRouteSeller>
           } >
-          <Route path="home-mon" element={       
+          <Route path="home-mon" element={ 
+            <RoleRouteSeller>
               <HomeMonitor />   
+            </RoleRouteSeller>      
           }></Route>
-          <Route path="home-mon/dashboard-mon" element={<DashboardMon />}></Route>
-          <Route path="home-mon/perizinan" element={<Perizinan />}></Route>
-          <Route path="home-mon/perizinan/detail-izin/:id" element={<DetailStatusAdmin checkStatus={true}/>}></Route>
-          <Route path="home-mon/data" element={<Data/>}></Route>
+          <Route path="home-mon/dashboard-mon" element={
+            <RoleRouteSeller>
+              <DashboardMon />
+            </RoleRouteSeller>
+          }></Route>
+          <Route path="home-mon/perizinan" element={
+            <RoleRouteSeller>
+              <Perizinan />
+            </RoleRouteSeller>
+          }></Route>
+          <Route path="home-mon/perizinan/detail-izin/:id" element={
+            <RoleRouteSeller>
+              <DetailStatusAdmin checkStatus={true}/>
+            </RoleRouteSeller>
+          }></Route>
+          <Route path="home-mon/data" element={
+            <RoleRouteSeller>
+              <Data/>
+            </RoleRouteSeller>
+          }></Route>
         </Route>
       </Routes>
     </BrowserRouter>

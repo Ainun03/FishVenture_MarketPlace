@@ -216,15 +216,15 @@ function AddProductBudidaya () {
                                 </fieldset>
                                 
                                 <div className="flex flex-row items-start  mt-6 gap-4">
-                                    <Button
+                                    {/* <Button
                                         type="button"
                                         // onClick={handlePreview}
                                         className="w-full"
                                         variant="secondary"
                                     >
                                         Preview
-                                    </Button>
-                                    <button type="submit" className="w-full w-full text-gray-700 font-semibold  border-2 hover:italic bg-blue-500 hover:bg-blue-300 hover:text-white w-full p-3  shadow-main shadow-slate-700 cursor-pointer  overflow-hidden rounded-xl shadow-md hover:shadow-xl  transition-shadow duration-300 ease-in-out">
+                                    </Button> */}
+                                    <button type="submit" className="w-full text-gray-700 font-semibold  border-2 hover:italic bg-blue-500 hover:bg-blue-300 hover:text-white w-full p-3  shadow-main shadow-slate-700 cursor-pointer  overflow-hidden rounded-xl shadow-md hover:shadow-xl  transition-shadow duration-300 ease-in-out">
                                         {location.pathname.includes("edit_product")
                                             ? "Perbarui"
                                             : "Terbitkan"}

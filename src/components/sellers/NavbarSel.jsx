@@ -8,6 +8,7 @@ import {AiOutlineUser} from 'react-icons/ai'
 import {FiUser} from 'react-icons/fi'
 import {BsNewspaper} from 'react-icons/bs'
 import {FaStethoscope} from 'react-icons/fa'
+import {GiMoneyStack} from 'react-icons/gi'
 import {MdOutlineInventory} from 'react-icons/md'
 import {AiOutlineHome} from 'react-icons/ai'
 import { IoClose, IoMenu } from "react-icons/io5";
@@ -86,16 +87,16 @@ function NavbarSel () {
                             </div>
                         </Link>
                         
-                        <Link to="/home-sel/inventory">
+                        <Link to="/home-sel/transaksi">
                             <div className={
-                                "home text-center mt-2 p-2 flex gap-3  hover:text-[#0172AF] " +
-                                (location.pathname === "/home-sel/inventory" ||
-                                location.pathname === "/home-sel/inventory"
-                                ? "active-state text-[#0172AF] bg-gray-200"
+                                "home text-center flex p-2 gap-3 mt-2 hover:text-[#0172AF] " +
+                                (location.pathname === "/home-sel/transaksi" ||
+                                location.pathname === "/home-sel/transaksi/"
+                                ? "active-state text-[#0172AF] bg-gray-200 "
                                 : "nonActive-state")
                             }> 
                                 <div className=" flex justify-center items-center">
-                                    <FaStethoscope size={25} />
+                                    <GiMoneyStack size={25} />
                                 </div>
                                 <h1>Transaksi</h1>
                             </div>
@@ -103,32 +104,17 @@ function NavbarSel () {
                         
                         <Link to="/home-sel/inventory">
                             <div className={
-                                "home text-center flex p-2 gap-3 mt-2 hover:text-[#0172AF] " +
-                                (location.pathname === "/home-sel/inventory" ||
-                                location.pathname === "/home-sel/inventory"
-                                ? "active-state text-[#0172AF] bg-gray-200 "
-                                : "nonActive-state")
-                            }> 
-                                <div className=" flex justify-center items-center">
-                                    <MdOutlineInventory size={25} />
-                                </div>
-                                <h1>Inventory</h1>
-                            </div>
-                        </Link>
-                        
-                        <Link to="/home-sel/laporan">
-                            <div className={
                                 "home text-center mt-2 p-2 flex gap-3 hover:text-[#0172AF] " +
-                                (location.pathname === "/home-sel/laporan" ||
-                                location.pathname === "/home-sel/laporan"
+                                (location.pathname === "/home-sel/inventory" ||
+                                location.pathname === "/home-sel/inventory/"
                                 ? "active-state text-[#0172AF] bg-gray-200"
                                 : "nonActive-state")
 
                             }> 
                                 <div className=" flex justify-center items-center">
-                                    <FaStethoscope size={25} />
+                                    <MdOutlineInventory size={25} />
                                 </div>
-                                <h1>Laporan</h1>
+                                <h1>Inventory</h1>
                             </div>
                         </Link>
                         

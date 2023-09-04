@@ -106,7 +106,7 @@ function HomeSel (){
                             } */}
                             {        
                                check.status === "actived" ? (
-                                        <div className="bg-green-500 flex justify-center w-full p-3 rounded-b-2xl ">
+                                        <div className="bg-green-500 hidden flex justify-center w-full p-3 rounded-b-2xl ">
                                             <h3 className="font-medium capitalize text-white py-2 px-2  ">
                                                 SELAMATT !!!! Pengajuan Anda Telah disetujui, mulai Berbudidaya
                                             </h3>

@@ -72,8 +72,8 @@ export const loginUser = createAsyncThunk(
     "/profile",
     async (payload, thunkAPI) => {
         
-        // const url = `http://213.190.4.135:8080/profile`
-        const url = `https://fishventure.site/profile`
+        const url = `http://213.190.4.135:8080/profile`
+        // const url = `https://fishventure.site/profile`
         const { token } = thunkAPI.getState().user.user;
     try {
         const resp = await axios.get(url,
@@ -105,8 +105,8 @@ export const postImageUser = createAsyncThunk(
     "/upload-user-photo",
     async (payload, thunkAPI) => {
       console.log(payload);
-      const url = `https://fishventure.site/upload-user-photo`
-      // const url = `http://213.190.4.135:8080/upload-user-photo`
+      // const url = `https://fishventure.site/upload-user-photo`
+      const url = `http://213.190.4.135:8080/upload-user-photo`
       try {
         const resp = await axios.post(url,payload,
           {
@@ -134,8 +134,8 @@ export const updateUser = createAsyncThunk(
     "/update-user",
     async (payload, thunkAPI) => {
       console.log(payload)
-      // const url = `http://213.190.4.135:8080/update-user`
-      const url = `https://fishventure.site/update-user`
+      const url = `http://213.190.4.135:8080/update-user`
+      // const url = `https://fishventure.site/update-user`
       const { token } = thunkAPI.getState().user.user;
       try {
         const resp = await axios.post(url,JSON.stringify(payload),
@@ -171,7 +171,9 @@ export const authSlice = createSlice({
     logout: (state) => {
         localStorage.removeItem("user");
         state.isAuthenticated = false;
-        state.user= null
+        state.user= {
+          applicationType:""
+        };
         state.isError= false;
         state.isSuccess= false;
         state.profil={}

@@ -14,7 +14,7 @@ function CardBudidaya(props){
     var endPanen = moment.tz(item.estPanenDate,"Asia/Jakarta");
     return(
         <Fragment>
-            <div className='card inline-block  border-2 hover:origin-top-left bg-[#E8F0F2]   p-2 shadow-main shadow-slate-700 w-64 h-64 cursor-pointer  overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out' 
+            <div className='card inline-block  border-2 hover:origin-top-left bg-[#E8F0F2]   p-2 shadow-main shadow-slate-700 w-full h-64  overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out' 
             onClick={() =>  {
                 navigate(`update-product/${item.id}`)
             }}

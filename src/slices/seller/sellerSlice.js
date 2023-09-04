@@ -31,7 +31,7 @@ const initialState = {
       image:"",
       listBerkas:[],
       listPool:[],
-      status: userStatus ? userStatus :""
+      status: ""
     },
     kolam: {},
     jenisIkan:{},

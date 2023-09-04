@@ -12,7 +12,7 @@ function CardIkan(props){
 
     return(
         <Fragment>
-            <div className='card border-black border-2 hover:origin-top-left rounded-md bg-[#E8F0F2] shadow-main shadow-slate-700 cursor-pointer' 
+            <div className='card inline-block capitalize  border-2 hover:origin-top-left bg-[#E8F0F2]  p-2 shadow-main shadow-slate-700 w-full h-full  overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out' 
             onClick={() => navigate('/home-sel/laporan/detail')}
 
              >

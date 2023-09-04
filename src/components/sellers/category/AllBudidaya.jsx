@@ -19,7 +19,7 @@ const AllBudidaya = ({status}) => {
       <Fragment>
         <div className='w-full  pb-5 px-4  flex justify-end '>
                 <button onClick={() => {
-                  if ((status === "reviewed" || status === "submission"  )) {
+                  if ((status === "reviewed" || status === "submission" || status === ""  )) {
                     return toast.error('Tunggu Hingga Pengajuan Anda Diterima!', {
                           position: "top-center",
                           autoClose: 5000,
